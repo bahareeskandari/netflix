@@ -1,5 +1,9 @@
 import React, {useState} from 'react'
-import Home from './pages/Home'
+import Movies from './pages/Movies'
+import Profile from './pages/Profile'
+import MyList from './pages/MyList'
+import TVShows from './pages/TVShows'
+import Notifications from './pages/Notifications'
 import {BrowserRouter, Route, Link} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import CameraIcon from '@material-ui/icons/PhotoCamera'
@@ -26,44 +30,22 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
-    backgroundColor: theme.palette.text.primary,
     margin: theme.spacing(2),
   },
-  menu: {
-    backgroundColor: theme.palette.background.paper,
-  },
+
   link: {
     color: 'white',
     margin: theme.spacing(2),
+    textDecorationLine: 'none',
   },
-  icon: {
-    marginRight: theme.spacing(2),
+  navRight: {
+    margin: theme.spacing(2),
+    justifyContent: 'flex-end',
   },
-  heroContent: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(8, 0, 6),
-  },
-  heroButtons: {
-    marginTop: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
+  navLeft: {
+    margin: theme.spacing(2),
+    justifyContent: 'flex-start',
     flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
   },
 }))
 
@@ -82,50 +64,53 @@ const Navbar = () => {
   }
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar className={classes.appbar} position="relative">
+    <div>
+      <AppBar position="static" color="transparent">
         <Toolbar>
-          <CameraIcon className={classes.icon} />
+          <CameraIcon color="inherit" />
+          <div className={classes.navLeft}>
+            <Link to="/" className={classes.link}>
+              Home
+            </Link>
 
-          <Link to="/" className={classes.link} color="inherit">
-            Home
-          </Link>
-          <Link to="" className={classes.link} color="inherit">
-            TV show
-          </Link>
-          <Link to="" className={classes.link} color="inherit">
-            Movies
-          </Link>
-          <Link to="" className={classes.link} color="inherit">
-            Recently added
-          </Link>
-          <Link to="" className={classes.link} color="inherit">
-            My list
-          </Link>
+            <Link to="/TVShows" className={classes.link}>
+              TV shows
+            </Link>
+            <Link to="/Movies" className={classes.link} color="inherit">
+              Movies
+            </Link>
+            <Link to="" className={classes.link} color="inherit">
+              My list
+            </Link>
+          </div>
 
-          <Button
-            className={classes.menu}
-            aria-controls="simple-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
-          >
-            <AccountBoxOutlinedIcon />
-          </Button>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
-          </Menu>
+          <div className={classes.navRight}>
+            <Link to="/Notifications" className={classes.link}>
+              Notifications
+            </Link>
+            <Button
+              className={classes.link}
+              aria-controls="simple-menu"
+              aria-haspopup="true"
+              onClick={handleClick}
+            >
+              <AccountBoxOutlinedIcon />
+            </Button>
+            <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
-    </React.Fragment>
+    </div>
   )
 }
 export default Navbar

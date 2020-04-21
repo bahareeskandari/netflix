@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-function Hero() {
+function Notifications() {
   const classes = useStyles()
 
-  return <div>hahaha</div>
+  return <div>Notifications</div>
 }
-export default Hero
+export default Notifications
