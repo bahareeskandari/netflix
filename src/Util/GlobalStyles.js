@@ -9,4 +9,14 @@ export const createGlobalStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: 'black',
   },
+  search: {
+    color: 'white',
+  },
+  searchInput: {
+    palette: {
+      type: 'dark',
+    },
+
+    backgroundColor: 'theme.palette.text.secondary',
+  },
 }))

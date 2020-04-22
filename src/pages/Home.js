@@ -1,9 +1,9 @@
-import React from 'react'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Typography from '@material-ui/core/Typography'
+import React, {useState} from 'react'
+import MoviesList from '../components/MovieList'
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
 import {createGlobalStyles} from '../Util/GlobalStyles'
+import Popup from '../components/Popup'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -12,21 +12,52 @@ const useStyles = makeStyles((theme) => ({
       'url(https://www.myanmore.com/wp-content/uploads/2019/05/netflix-background-9.jpg)',
   },
 }))
+//API Key: 45c558de41ced2373b930108825d0ef8
 //style={{backgroundColor: '#cfe8fc'}}  <Typography component="div" style={{backgroundColor: '#cfe8fc'}}>
 
 export default function Home() {
   const classes = useStyles()
   const classesGlobal = createGlobalStyles()
+  const [movies, setMovies] = useState([])
+  const [openModal, setOpenModal] = useState(false)
+
+  const fetchMovies = async () => {
+    const popularMovies = await fetch(
+      'https://api.themoviedb.org/3/movie/popular?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
+    )
+    const topRatedMovies = await fetch(
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
+    )
+
+    const popularMoviesData = await popularMovies.json()
+    const topRatedMoviesData = await topRatedMovies.json()
+
+    const popular = popularMoviesData.results
+
+    const topRated = topRatedMoviesData.results
+
+    setMovies(topRated.concat(popular))
+  }
+  fetchMovies()
+
+  const handleOpen = (movie) => {
+    console.log(movie)
+    setOpenModal(true)
+  }
+  const handleClose = () => {
+    setOpenModal(false)
+  }
+
   return (
     <div className={classesGlobal.containerImage}>
       <Container maxWidth="lg">
-        <Typography component="div">
-          HOME COMPONENT Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum corrupti
-          provident perspiciatis quas distinctio molestias deserunt saepe libero ea repellat alias,
-          optio voluptates placeat in eveniet totam esse dicta ullam.
-          <br />
-          sjsj
-        </Typography>
+        <Popup openModal={openModal} handleClose={handleClose} />
+        <MoviesList
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+          openModal={openModal}
+          movies={movies}
+        />
       </Container>
     </div>
   )

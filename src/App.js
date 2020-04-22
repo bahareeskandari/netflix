@@ -8,8 +8,7 @@ import TVShows from './pages/TVShows'
 import Footer from './Footer'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import Home from './pages/Home'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Typography from '@material-ui/core/Typography'
+
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
 import Movies from './pages/Movies'
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const classes = useStyles()
-  const classesGlobal = createGlobalStyles()
+  // const classesGlobal = createGlobalStyles()
 
   return (
     <div>

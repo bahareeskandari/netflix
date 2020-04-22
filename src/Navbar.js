@@ -1,32 +1,17 @@
-import React, {useState} from 'react'
-import Movies from './pages/Movies'
-import Profile from './pages/Profile'
-import MyList from './pages/MyList'
-import TVShows from './pages/TVShows'
-import Notifications from './pages/Notifications'
-import {BrowserRouter, Route, Link} from 'react-router-dom'
+import React from 'react'
+import {Link} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import CameraIcon from '@material-ui/icons/PhotoCamera'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
-
-//import Link from '@material-ui/core/Link'
-
+import InputBase from '@material-ui/core/InputBase'
+import SearchIcon from '@material-ui/icons/Search'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import {createGlobalStyles} from './Util/GlobalStyles'
 
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined'
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-    </Typography>
-  )
-}
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -49,9 +34,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 const Navbar = () => {
+  const classesGlobal = createGlobalStyles()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -79,12 +63,19 @@ const Navbar = () => {
             <Link to="/Movies" className={classes.link} color="inherit">
               Movies
             </Link>
-            <Link to="" className={classes.link} color="inherit">
+            <Link to="/MyList" className={classes.link} color="inherit">
               My list
             </Link>
           </div>
 
           <div className={classes.navRight}>
+            <SearchIcon className={classesGlobal.search} />
+            <InputBase
+              placeholder="Search…"
+              className={classesGlobal.searchInput}
+              inputProps={{'aria-label': 'search'}}
+            />
+
             <Link to="/Notifications" className={classes.link}>
               Notifications
             </Link>
