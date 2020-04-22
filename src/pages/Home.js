@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import MoviesList from '../components/MovieList'
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
@@ -20,6 +20,7 @@ export default function Home() {
   const classesGlobal = createGlobalStyles()
   const [movies, setMovies] = useState([])
   const [openModal, setOpenModal] = useState(false)
+  const [selectedMovie, setSelectedMovie] = useState({})
 
   const fetchMovies = async () => {
     const popularMovies = await fetch(
@@ -38,20 +39,24 @@ export default function Home() {
 
     setMovies(topRated.concat(popular))
   }
-  fetchMovies()
+  useEffect(() => {
+    fetchMovies()
+  }, [])
 
   const handleOpen = (movie) => {
-    console.log(movie)
+    setSelectedMovie(movie)
     setOpenModal(true)
   }
+
   const handleClose = () => {
+    setSelectedMovie(undefined)
     setOpenModal(false)
   }
 
   return (
     <div className={classesGlobal.containerImage}>
       <Container maxWidth="lg">
-        <Popup openModal={openModal} handleClose={handleClose} />
+        <Popup openModal={openModal} movie={selectedMovie} handleClose={handleClose} />
         <MoviesList
           handleClose={handleClose}
           handleOpen={handleOpen}
