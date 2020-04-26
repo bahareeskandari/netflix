@@ -4,12 +4,13 @@ import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
 import {createGlobalStyles} from '../Util/GlobalStyles'
 import Popup from '../components/Popup'
+import SearchBar from '../components/SearchBar'
+import Grid from '@material-ui/core/Grid'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     display: 'flex',
-    backgroundImage:
-      'url(https://www.myanmore.com/wp-content/uploads/2019/05/netflix-background-9.jpg)',
+    backgroundColor: '#141414',
   },
 }))
 //API Key: 45c558de41ced2373b930108825d0ef8
@@ -20,7 +21,8 @@ export default function Home() {
   const classesGlobal = createGlobalStyles()
   const [movies, setMovies] = useState([])
   const [openModal, setOpenModal] = useState(false)
-  const [selectedMovie, setSelectedMovie] = useState({})
+  const [selectedMovie, setSelectedMovie] = useState(undefined)
+  const [input, setInput] = useState('')
 
   const fetchMovies = async () => {
     const popularMovies = await fetch(
@@ -53,16 +55,25 @@ export default function Home() {
     setOpenModal(false)
   }
 
+  const handleInput = (e) => {
+    console.log(e)
+  }
+
   return (
-    <div className={classesGlobal.containerImage}>
+    <div className={classesGlobal.container}>
       <Container maxWidth="lg">
-        <Popup openModal={openModal} movie={selectedMovie} handleClose={handleClose} />
-        <MoviesList
-          handleClose={handleClose}
-          handleOpen={handleOpen}
-          openModal={openModal}
-          movies={movies}
-        />
+        <Grid container direction="row" justify="flex-end" alignItems="center" spacing={3}>
+          <SearchBar handleInput={handleInput} />
+          <Grid item xs={12}>
+            <Popup openModal={openModal} movie={selectedMovie} handleClose={handleClose} />
+            <MoviesList
+              handleClose={handleClose}
+              handleOpen={handleOpen}
+              openModal={openModal}
+              movies={movies}
+            />
+          </Grid>
+        </Grid>
       </Container>
     </div>
   )

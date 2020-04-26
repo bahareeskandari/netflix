@@ -36,13 +36,8 @@ const Popup = ({openModal, movie = {}, handleClose}) => {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">{movie.id}</h2>
-
-      <p id="simple-modal-description">
-        {movie.id}
-        {movie.original_title}
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
+      <h2 id="simple-modal-title"> {movie.original_title}</h2>
+      <p id="simple-modal-description">{movie.overview}</p>
     </div>
   )
 

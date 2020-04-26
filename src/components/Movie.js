@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 200,
   },
   paper: {
     padding: theme.spacing(1),
@@ -26,35 +26,17 @@ const Movie = ({movie, handleOpen}) => {
 
   return (
     <React.Fragment>
-      <Grid item xs={4}>
+      <Grid item xs={3}>
         <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              alt="Contemplative Reptile"
-              height="160"
-              image={imageFirstPart + movie.poster_path}
-              title="Contemplative Reptile"
-              onClick={() => handleOpen(movie)}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {movie.title}
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p">
-                Lizards are a widespread group of squamate reptiles, with over 6,000 species,
-                ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-            <Button size="small" color="primary">
-              Learn More
-            </Button>
-          </CardActions>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            height="200"
+            image={imageFirstPart + movie.poster_path}
+            title="Contemplative Reptile"
+            onClick={() => handleOpen(movie)}
+          />
+          <CardContent></CardContent>
         </Card>
       </Grid>
     </React.Fragment>

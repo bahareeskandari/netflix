@@ -16,7 +16,7 @@ import {createGlobalStyles} from './Util/GlobalStyles'
 
 const useStyles = makeStyles((theme) => ({
   containerNav: {
-    backgroundColor: 'black',
+    backgroundColor: '#141414',
   },
 }))
 
@@ -37,6 +37,7 @@ function App() {
           <Route path="/MyList" exact exact component={MyList} />
           <Route path="/Profile" exact exact component={Profile} />
           <Route path="/Notifications" exact exact component={Notifications} />
+          <Route path="/Profile" exact exact component={Profile} />
         </Switch>
         <Footer />
       </BrowserRouter>
