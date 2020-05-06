@@ -1,10 +1,28 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {createGlobalStyles} from '../Util/GlobalStyles'
+import MediaDisplayer from '../components/MediaDisplayer'
 
 const TVShows = () => {
-  return (
-    <div>
-      <h3>TVShows</h3>
-    </div>
-  )
+  const classesGlobal = createGlobalStyles()
+  const [tvShows, setTvShows] = useState([])
+
+  const fetchTvShows = async () => {
+    const popularTvShows = await fetch(
+      'https://api.themoviedb.org/3/tv/popular?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
+    )
+    const topRatedTVSHows = await fetch(
+      'https://api.themoviedb.org/3/tv/top_rated?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
+    )
+
+    const popularTvSHowsData = await popularTvShows.json()
+    const topRatedTvShowsData = await topRatedTVSHows.json()
+
+    const popular = popularTvSHowsData.results
+
+    const topRated = topRatedTvShowsData.results
+
+    setTvShows(topRated.concat(popular))
+  }
+  return <MediaDisplayer media={tvShows} fetchMedia={fetchTvShows} />
 }
 export default TVShows

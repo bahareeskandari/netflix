@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import {createGlobalStyles} from './Util/GlobalStyles'
-
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined'
 
 const useStyles = makeStyles((theme) => ({
@@ -18,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
   },
 
   link: {
+    color: '#e9e9e9',
+    margin: theme.spacing(2),
+    textDecorationLine: 'none',
+    fontFamily: "'Netflix Sans', 'Helvetica Neue',´ Helvetica, Arial, sans-serif",
+    fontWeight: 'normal',
+  },
+  searchBar: {
     color: '#e9e9e9',
     margin: theme.spacing(2),
     textDecorationLine: 'none',
@@ -60,12 +66,11 @@ const Navbar = () => {
           <NavLink exact to="/" activeStyle={{color: 'white'}} className={classes.link}>
             Home
           </NavLink>
-
-          <NavLink exact to="/TVShows" activeStyle={{color: 'white'}} className={classes.link}>
-            TV shows
-          </NavLink>
           <NavLink exact to="/Movies" activeStyle={{color: 'white'}} className={classes.link}>
             Movies
+          </NavLink>
+          <NavLink exact to="/TVShows" activeStyle={{color: 'white'}} className={classes.link}>
+            TV shows
           </NavLink>
           <NavLink exact to="/MyList" activeStyle={{color: 'white'}} className={classes.link}>
             My list
@@ -73,6 +78,7 @@ const Navbar = () => {
         </div>
 
         <div className={classes.navRight}>
+          <SearchBar className={classes.searchBar} />
           <NavLink
             exact
             to="/Notifications"

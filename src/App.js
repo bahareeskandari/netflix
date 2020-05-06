@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import Navbar from './Navbar'
 import Profile from './pages/Profile'
@@ -7,12 +7,12 @@ import MyList from './pages/MyList'
 import TVShows from './pages/TVShows'
 import Footer from './Footer'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import Home from './pages/Home'
-
+import {UserProvider} from './components/UserContext'
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
 import Movies from './pages/Movies'
 import {createGlobalStyles} from './Util/GlobalStyles'
+import StartPage from './pages/StartPage'
 
 const useStyles = makeStyles((theme) => ({
   containerNav: {
@@ -23,23 +23,32 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles()
   // const classesGlobal = createGlobalStyles()
+  const [myList, setMyList] = useState([])
+
+  const user = {
+    name: 'bahare',
+    list: [],
+  }
+  const addToList = () => {}
 
   return (
     <div>
       <BrowserRouter>
-        <Container className={classes.containerNav} maxWidth="xl">
-          <Navbar />
-        </Container>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/TVShows" exact exact component={TVShows} />
-          <Route path="/Movies" exact exact component={Movies} />
-          <Route path="/MyList" exact exact component={MyList} />
-          <Route path="/Profile" exact exact component={Profile} />
-          <Route path="/Notifications" exact exact component={Notifications} />
-          <Route path="/Profile" exact exact component={Profile} />
-        </Switch>
-        <Footer />
+        <UserProvider value={user}>
+          <Container className={classes.containerNav} maxWidth="xl">
+            <Navbar />
+          </Container>
+          <Switch>
+            <Route path="/" exact component={StartPage} />
+            <Route path="/Movies" exact component={Movies} />
+            <Route path="/TVShows" exact component={TVShows} />
+            <Route path="/MyList" exact component={MyList} />
+            <Route path="/Profile" exact component={Profile} />
+            <Route path="/Notifications" exact component={Notifications} />
+            <Route path="/Profile" exact component={Profile} />
+          </Switch>
+          <Footer />
+        </UserProvider>
       </BrowserRouter>
     </div>
   )

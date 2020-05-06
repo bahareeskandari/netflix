@@ -1,19 +1,46 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {createGlobalStyles} from '../Util/GlobalStyles'
-import Typography from '@material-ui/core/Typography'
-import Container from '@material-ui/core/Container'
+import MediaDisplayer from '../components/MediaDisplayer'
 
 const Movies = () => {
   const classesGlobal = createGlobalStyles()
-  return (
-    <div className={classesGlobal.containerImage}>
-      <Container maxWidth="xl">
-        <Typography component="div">
-          Movies COMPONENT
-          <br />
-        </Typography>
-      </Container>
-    </div>
-  )
+  const [movies, setMovies] = useState([])
+
+  const fetchMovies = async () => {
+    const popularMovies = await fetch(
+      'https://api.themoviedb.org/3/movie/popular?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
+    )
+    const topRatedMovies = await fetch(
+      'https://api.themoviedb.org/3/movie/top_rated?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
+    )
+
+    const popularMoviesData = await popularMovies.json()
+    const topRatedMoviesData = await topRatedMovies.json()
+    console.log(popularMoviesData.results)
+
+    const popular = popularMoviesData.results.map((movie) => {
+      return {
+        original_title: movie.original_title,
+        poster_path: movie.poster_path,
+        id: movie.id,
+        overview: movie.overview,
+        rating: null,
+      }
+    })
+    console.log(popular)
+    const topRated = topRatedMoviesData.results.map((movie) => {
+      return {
+        original_title: movie.original_title,
+        poster_path: movie.poster_path,
+        id: movie.id,
+        overview: movie.overview,
+        rating: null,
+      }
+    })
+
+    setMovies(topRated.concat(popular))
+  }
+
+  return <MediaDisplayer fetchMedia={fetchMovies} media={movies} />
 }
 export default Movies

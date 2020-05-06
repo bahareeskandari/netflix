@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import Modal from '@material-ui/core/Modal'
-import Movie from './Movie'
+import Movie from './Media'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 const Popup = ({openModal, movie = {}, handleClose}) => {
   const classes = useStyles()
   // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle)
+  const [modalStyle] = useState(getModalStyle)
 
   const body = (
     <div style={modalStyle} className={classes.paper}>

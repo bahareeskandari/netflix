@@ -11,17 +11,19 @@ const SearchBar = ({handleInput}) => {
   const classes = useStyles()
   const classesGlobal = createGlobalStyles()
   const [input, setInput] = useState('')
-
+  /*
+const handleInput = (e) => {
+    console.log(e)
+  }
+*/
   return (
     <React.Fragment>
-      <Grid item xs={3} className={classesGlobal.searchBar}>
-        <SearchIcon className={classesGlobal.searchIcon} onClick={() => handleInput(input)} />
-        <InputBase
-          placeholder="Search ..…"
-          className={classesGlobal.searchInput}
-          onChange={(e) => setInput(e.target.value)}
-        />
-      </Grid>
+      <SearchIcon className={classesGlobal.searchIcon} onClick={() => handleInput(input)} />
+      <InputBase
+        placeholder="Search ..…"
+        className={classesGlobal.searchInput}
+        onChange={(e) => setInput(e.target.value)}
+      />
     </React.Fragment>
   )
 }
