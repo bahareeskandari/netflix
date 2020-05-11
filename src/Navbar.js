@@ -2,7 +2,6 @@ import React from 'react'
 import SearchBar from './components/SearchBar'
 import {NavLink} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
-import CameraIcon from '@material-ui/icons/PhotoCamera'
 import Toolbar from '@material-ui/core/Toolbar'
 import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -10,6 +9,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import {createGlobalStyles} from './Util/GlobalStyles'
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined'
+import {useGoogleLogout} from 'react-google-login'
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -58,6 +58,8 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  const handleLogOut = () => {}
 
   return (
     <AppBar position="static" color="transparent">
@@ -113,7 +115,7 @@ const Navbar = () => {
               </NavLink>
             </MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
           </Menu>
         </div>
       </Toolbar>

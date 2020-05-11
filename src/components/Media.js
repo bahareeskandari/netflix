@@ -5,6 +5,8 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import StarRating from './StarRating'
+import Button from '@material-ui/core/Button'
+import ButtonGroup from '@material-ui/core/ButtonGroup'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +38,9 @@ const Media = ({product, handleOpen}) => {
           <CardContent>
             <StarRating />
           </CardContent>
+          <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
+            <Button>See trailer</Button>
+          </ButtonGroup>
         </Card>
       </Grid>
     </React.Fragment>

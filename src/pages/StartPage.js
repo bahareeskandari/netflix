@@ -1,6 +1,4 @@
 import React from 'react'
-import StarRating from '../components/StarRating'
-import {GoogleLogin} from 'react-google-login'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -25,7 +23,6 @@ function Copyright() {
     </Typography>
   )
 }
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -45,8 +42,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }))
-const StartPage = (response) => {
+const StartPage = () => {
   const classes = useStyles()
+
   const classesGlobal = createGlobalStyles()
 
   return (
@@ -57,18 +55,9 @@ const StartPage = (response) => {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <StarRating />
-          <form className={classes.form} noValidate>
-            <Grid item xs={12}>
-              <GoogleLogin
-                clientId="694887176212-qrgsq95vpivsm86n4d3af6s0bvpsbhqt.apps.googleusercontent.com"
-                buttonText="Login with gmail"
-                onSuccess={StartPage}
-                onFailure={StartPage}
-                cookiePolicy={'single_host_origin'}
-              />
-            </Grid>
 
+          <form className={classes.form} noValidate>
+            <Grid item xs={12}></Grid>
             <Button
               type="submit"
               fullWidth

@@ -4,7 +4,6 @@ import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
 import {createGlobalStyles} from '../Util/GlobalStyles'
 import Popup from './Popup'
-import SearchBar from './SearchBar'
 import Grid from '@material-ui/core/Grid'
 import UserContext from './UserContext'
 

@@ -11,7 +11,7 @@ import {UserProvider} from './components/UserContext'
 import Container from '@material-ui/core/Container'
 import {makeStyles} from '@material-ui/core/styles'
 import Movies from './pages/Movies'
-import {createGlobalStyles} from './Util/GlobalStyles'
+
 import StartPage from './pages/StartPage'
 
 const useStyles = makeStyles((theme) => ({
