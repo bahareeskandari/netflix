@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useContext} from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import {createGlobalStyles} from '../Util/GlobalStyles'
+import {FirebaseContext} from '../Firebase/FirebaseContext'
+import {UserContext, UserProvider} from '../components/UserContext'
 
 function Copyright() {
   return (
@@ -44,8 +46,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 const StartPage = () => {
   const classes = useStyles()
-
   const classesGlobal = createGlobalStyles()
+  const [isSignedIn, setIsSignedIn] = useState(false)
+  const {myList} = useContext(UserContext)
+  const {onClickLogin} = useContext(FirebaseContext)
 
   return (
     <div className={classesGlobal.container}>
@@ -64,8 +68,9 @@ const StartPage = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={onClickLogin}
             >
-              Click to create account
+              Login
             </Button>
             <Grid container justify="flex-end">
               <Grid item>

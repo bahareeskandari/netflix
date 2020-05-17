@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import SearchBar from './components/SearchBar'
 import {NavLink} from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
@@ -10,6 +10,9 @@ import MenuItem from '@material-ui/core/MenuItem'
 import {createGlobalStyles} from './Util/GlobalStyles'
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined'
 import {useGoogleLogout} from 'react-google-login'
+import firebase from 'firebase'
+import {UserContext, UserProvider} from './components/UserContext'
+import {FirebaseContext, FirebaseProvider} from './Firebase/FirebaseContext'
 
 const useStyles = makeStyles((theme) => ({
   appbar: {
@@ -50,6 +53,7 @@ const Navbar = () => {
   const classesGlobal = createGlobalStyles()
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const {onClickLogin} = useContext(FirebaseContext)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -66,7 +70,7 @@ const Navbar = () => {
       <Toolbar>
         <div className={classes.navLeft}>
           <NavLink exact to="/" activeStyle={{color: 'white'}} className={classes.link}>
-            Home
+            StartPage
           </NavLink>
           <NavLink exact to="/Movies" activeStyle={{color: 'white'}} className={classes.link}>
             Movies

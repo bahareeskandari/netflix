@@ -5,7 +5,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import {createGlobalStyles} from '../Util/GlobalStyles'
 import Popup from './Popup'
 import Grid from '@material-ui/core/Grid'
-import UserContext from './UserContext'
+import {UserContext} from './UserContext'
 
 const useStyles = makeStyles((theme) => ({
   grow: {

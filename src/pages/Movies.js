@@ -1,10 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import {createGlobalStyles} from '../Util/GlobalStyles'
 import MediaDisplayer from '../components/MediaDisplayer'
+import {UserContext} from '../components/UserContext'
 
 const Movies = () => {
   const classesGlobal = createGlobalStyles()
-  const [movies, setMovies] = useState([])
+  const {movies, setMovies} = useContext(UserContext)
 
   const fetchMovies = async () => {
     const popularMovies = await fetch(
@@ -19,12 +20,14 @@ const Movies = () => {
     console.log(popularMoviesData.results)
 
     const popular = popularMoviesData.results.map((movie) => {
+      console.log(movie)
       return {
         original_title: movie.original_title,
         poster_path: movie.poster_path,
         id: movie.id,
         overview: movie.overview,
         rating: null,
+        comments: [],
       }
     })
     console.log(popular)
@@ -35,6 +38,7 @@ const Movies = () => {
         id: movie.id,
         overview: movie.overview,
         rating: null,
+        comments: [],
       }
     })
 

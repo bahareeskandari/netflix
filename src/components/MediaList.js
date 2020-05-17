@@ -2,7 +2,9 @@ import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Media from './Media'
+import {Link, Route, BrowserRouter} from 'react-router-dom'
 import Popup from './Popup'
+import Trailer from '../pages/Trailer'
 
 const useStyles = makeStyles((theme) => ({
   root: {

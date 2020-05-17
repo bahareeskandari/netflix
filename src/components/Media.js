@@ -6,8 +6,9 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import StarRating from './StarRating'
 import Button from '@material-ui/core/Button'
+import {Link, Route, BrowserRouter} from 'react-router-dom'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
-
+import Trailer from '../pages/Trailer'
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 200,
@@ -39,7 +40,9 @@ const Media = ({product, handleOpen}) => {
             <StarRating />
           </CardContent>
           <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-            <Button>See trailer</Button>
+            <Link exact to={`/Movies/${product.id}`}>
+              {product.original_title}
+            </Link>
           </ButtonGroup>
         </Card>
       </Grid>

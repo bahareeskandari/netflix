@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 
-const UserContext = React.createContext(true)
+export const UserContext = React.createContext(true)
 
-export const UserProvider = UserContext.Provider
+export const UserProvider = (props) => {
+  const [movies, setMovies] = useState([])
+  const [tvShows, setTvShows] = useState([])
 
-export const UserConsumer = UserContext.Consumer
-
-export default UserContext
+  return <UserContext.Provider value={{movies, setMovies}}>{props.children}</UserContext.Provider>
+}
