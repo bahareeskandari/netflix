@@ -17,7 +17,6 @@ const Movies = () => {
 
     const popularMoviesData = await popularMovies.json()
     const topRatedMoviesData = await topRatedMovies.json()
-    console.log(popularMoviesData.results)
 
     const popular = popularMoviesData.results.map((movie) => {
       console.log(movie)
@@ -43,7 +42,13 @@ const Movies = () => {
     })
     console.log(movies)
 
+    // TODO: bugg: movies sparas inte.
     setMovies(topRated.concat(popular))
+
+    setTimeout(() => {
+      // TODO: Undersök varför movies blir en tom array här
+      console.log('movies', movies)
+    }, 5000)
   }
 
   return <MediaDisplayer fetchMedia={fetchMovies} media={movies} />

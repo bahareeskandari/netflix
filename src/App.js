@@ -41,13 +41,12 @@ function App () {
                 <Route path='/Profile' exact component={Profile} />
                 <Route path='/Notifications' exact component={Notifications} />
                 <Route path='/Profile' exact component={Profile} />
-                {movies && <Route
+                <Route
                   path='/Movies/:proId'
-                  render={({ match }) => {
-                    // console.log(movies.find((g) => g.id === match.params.proId))
-                    return <Trailer movies={movies.find((g) => g.id === match.params.proId)} />
-                  }}
-                />}
+                  render={({ match }) => (
+                    <Trailer movieId={match.params.proId} />
+                  )}
+                />
               </Switch>
             </FirebaseProvider>
             <Footer />

@@ -39,7 +39,7 @@ const Media = ({ product, handleOpen }) => {
             <StarRating />
           </CardContent>
           <ButtonGroup variant='text' color='primary' aria-label='text primary button group'>
-            <Link exact to={`/Movies/${product.id}`}>
+            <Link to={`/Movies/${product.id}`}>
               {product.original_title}
             </Link>
           </ButtonGroup>
