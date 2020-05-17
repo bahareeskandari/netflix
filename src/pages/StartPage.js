@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -7,17 +7,17 @@ import Grid from '@material-ui/core/Grid'
 import Box from '@material-ui/core/Box'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Typography from '@material-ui/core/Typography'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
-import {createGlobalStyles} from '../Util/GlobalStyles'
-import {FirebaseContext} from '../Firebase/FirebaseContext'
-import {UserContext, UserProvider} from '../components/UserContext'
+import { createGlobalStyles } from '../Util/GlobalStyles'
+import { FirebaseContext } from '../Firebase/FirebaseContext'
+import { UserContext, UserProvider } from '../components/UserContext'
 
-function Copyright() {
+function Copyright () {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant='body2' color='textSecondary' align='center'>
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color='inherit' href='https://material-ui.com/'>
         Netflix
       </Link>{' '}
       {new Date().getFullYear()}
@@ -30,30 +30,31 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(3)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+    margin: theme.spacing(3, 0, 2)
+  }
 }))
 const StartPage = () => {
   const classes = useStyles()
   const classesGlobal = createGlobalStyles()
   const [isSignedIn, setIsSignedIn] = useState(false)
-  const {myList} = useContext(UserContext)
-  const {onClickLogin} = useContext(FirebaseContext)
+  const { myList } = useContext(UserContext)
+  const { onClickLogin, test } = useContext(FirebaseContext)
 
   return (
     <div className={classesGlobal.container}>
-      <Container component="main" maxWidth="xs">
+      <i className='fas fa-user-ninja vanished' />
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -61,20 +62,20 @@ const StartPage = () => {
           </Avatar>
 
           <form className={classes.form} noValidate>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12} />
             <Button
-              type="submit"
+              type='submit'
               fullWidth
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               className={classes.submit}
               onClick={onClickLogin}
             >
               Login
             </Button>
-            <Grid container justify="flex-end">
+            <Grid container justify='flex-end'>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href='#' variant='body2'>
                   Already have an account? Sign in
                 </Link>
               </Grid>

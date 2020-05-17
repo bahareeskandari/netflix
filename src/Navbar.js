@@ -10,7 +10,6 @@ import MenuItem from '@material-ui/core/MenuItem'
 import {createGlobalStyles} from './Util/GlobalStyles'
 import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined'
 import {useGoogleLogout} from 'react-google-login'
-import firebase from 'firebase'
 import {UserContext, UserProvider} from './components/UserContext'
 import {FirebaseContext, FirebaseProvider} from './Firebase/FirebaseContext'
 

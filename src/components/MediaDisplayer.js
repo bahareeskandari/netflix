@@ -1,21 +1,22 @@
-import React, {useState, useContext, useEffect} from 'react'
+// @flow
+import React, { useState, useContext, useEffect } from 'react'
 import MediaList from './MediaList'
 import Container from '@material-ui/core/Container'
-import {makeStyles} from '@material-ui/core/styles'
-import {createGlobalStyles} from '../Util/GlobalStyles'
+import { makeStyles } from '@material-ui/core/styles'
+import { createGlobalStyles } from '../Util/GlobalStyles'
 import Popup from './Popup'
 import Grid from '@material-ui/core/Grid'
-import {UserContext} from './UserContext'
+import { UserContext } from './UserContext'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
     display: 'flex',
-    backgroundColor: '#141414',
-  },
+    backgroundColor: '#141414'
+  }
 }))
-//API Key: 45c558de41ced2373b930108825d0ef8
+// API Key: 45c558de41ced2373b930108825d0ef8
 
-export default function MediaDisplayer({fetchMedia, media}) {
+export default function MediaDisplayer ({ fetchMedia, media }) {
   const classes = useStyles()
   const classesGlobal = createGlobalStyles()
 
@@ -40,8 +41,8 @@ export default function MediaDisplayer({fetchMedia, media}) {
 
   return (
     <div className={classesGlobal.container}>
-      <Container maxWidth="lg">
-        <Grid container direction="row" justify="flex-end" alignItems="center" spacing={3}>
+      <Container maxWidth='lg'>
+        <Grid container direction='row' justify='flex-end' alignItems='center' spacing={3}>
           <Grid item xs={12}>
             <Popup openModal={openModal} movie={selectedMovie} handleClose={handleClose} />
             <MediaList

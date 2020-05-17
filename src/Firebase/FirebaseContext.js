@@ -14,15 +14,41 @@ export const FirebaseProvider = (props) => {
     messagingSenderId: '419828713469',
     appId: '1:419828713469:web:04f7fcd042feab69897b94',
   }
+  // export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
+  if (!firebase.apps.length) {
+    firebase.initializeApp({
+      apiKey: firebaseConfig.apiKey,
+      authDomain: firebaseConfig.authDomain,
+      projectId: firebaseConfig.projectId,
+    })
+  } else {
+    firebase.app()
+  }
 
-  firebase.initializeApp({
-    apiKey: firebaseConfig.apiKey,
-    authDomain: firebaseConfig.authDomain,
-    projectId: firebaseConfig.projectId,
-  })
   const db = firebase.firestore()
   const provider = new firebase.auth.GoogleAuthProvider()
+  const isAuth = () => {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log(user.providerData[0])
+      } else {
+        console.log('doesnt exist')
+      }
+    })
+  }
+  const setUser = (userObject) => {
+    console.log('funkar')
+    if (!userObject.providerData.length) return
+    const user = userObject.providerData[0]
+    window.localStorage.setItem('user', JSON.stringify(user))
+  }
+
+  const getUser = () => {
+    const user = window.localStorage.getItem('user')
+    return JSON.parse(user)
+  }
   const onClickLogin = () => {
+    isAuth()
     firebase
       .auth()
       .signInWithPopup(provider)
@@ -30,7 +56,7 @@ export const FirebaseProvider = (props) => {
         const token = result.credential.accessToken
         console.log(token, 'token')
         const user = result.user
-        console.log(user, 'user')
+        setUser()
       })
       .catch((error) => {
         const errorCode = error.code
@@ -41,6 +67,8 @@ export const FirebaseProvider = (props) => {
       })
   }
   return (
-    <FirebaseContext.Provider value={{onClickLogin}}>{props.children}</FirebaseContext.Provider>
+    <FirebaseContext.Provider value={{onClickLogin, isAuth}}>
+      {props.children}
+    </FirebaseContext.Provider>
   )
 }
