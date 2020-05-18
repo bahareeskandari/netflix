@@ -1,27 +1,145 @@
-import React, { useState, useContext } from 'react'
-import { NavLink } from 'react-router-dom'
-import Comments from '../components/Comments'
+import React, { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../components/UserContext'
+import { makeStyles } from '@material-ui/core/styles'
+import FilledInput from '@material-ui/core/FilledInput'
+import InputLabel from '@material-ui/core/InputLabel'
+import CardMedia from '@material-ui/core/CardMedia'
+import clsx from 'clsx'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardActions from '@material-ui/core/CardActions'
+import Collapse from '@material-ui/core/Collapse'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import { red } from '@material-ui/core/colors'
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import ShareIcon from '@material-ui/icons/Share'
+import Alert from '@material-ui/lab/Alert'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
+const useStyles = makeStyles((theme) => ({
+
+  margin: {
+    margin: theme.spacing(1)
+  },
+  withoutLabel: {
+    marginTop: theme.spacing(3)
+  },
+  textField: {
+    width: '25ch'
+  },
+  root: {
+    maxWidth: 1000,
+    backgroundColor: 'white'
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%' // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)'
+  },
+  avatar: {
+    backgroundColor: red[500]
+  }
+}))
 
 const Trailer = ({ movieId }) => {
+  const classes = useStyles()
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState([])
-  const { movies, setMovies } = useContext(UserContext)
+  const { movies } = useContext(UserContext)
+  const [chosenTrailer, setChosenTrailer] = useState([])
+  const [expanded, setExpanded] = React.useState(false)
+  const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
 
-  const postComment = () => {
-    setComments([comment, ...comments])
-    setComments('')
+  useEffect(() => {
+    setChosenTrailer(movies.filter(movie => movie.id == movieId))
+  }, [])
+
+  const postComment = (comment) => {
+    console.log('the param', comment)
+    setComments([...comments, comment])
+    setComment('')
   }
   // TODO: bättre att söka upp filmens ID med array.find här inne istället.
-  console.log('movieId', movieId)
+  console.log(comments)
+  const handleExpandClick = () => {
+    setExpanded(!expanded)
+  }
   return (
-    <div>
-      <h3>Trailer</h3>
-      <input type='text' value={comment} onChange={(e) => setComment(e.target.value)} />
-      {/* TODO: Du har en infinite loop någonstans här under. Undersök vad som är fel:)  */}
-      {/* <button onClick={postComment()}>Submit</button>
-      <Comments comments={comments} /> */}
+    <div className={classes.root}>
+      {chosenTrailer.map(movie => (
+
+        <Card key={movie.id}>
+          <CardMedia
+            className={classes.media}
+            image={imageFirstPart + movie.poster_path}
+            title={movie.original_title}
+          />
+          <CardContent>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {movie.overview}
+            </Typography>
+
+            <InputLabel htmlFor='filled-adornment-amount'>something</InputLabel>
+            <FilledInput
+              id='filled-adornment-amount'
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+
+            />
+
+            <Alert onClick={() => postComment(comment)} severity='success'>
+              Comment
+            </Alert>
+
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label='add to favorites'>
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label='share'>
+              <ShareIcon />
+            </IconButton>
+
+            <IconButton
+              className={clsx(classes.expand, {
+                [classes.expandOpen]: expanded
+              })}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label='show more'
+            >
+              <ExpandMoreIcon />
+
+            </IconButton>
+
+          </CardActions>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+
+              {comments.map((comment, idx) => (
+                <Typography key={idx} paragraph>
+                  {comment}
+                </Typography>
+              ))}
+
+            </CardContent>
+          </Collapse>
+        </Card>
+
+      ))}
+
     </div>
+
   )
 }
 export default Trailer

@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
-import StarRating from './StarRating'
 import ButtonGroup from '@material-ui/core/ButtonGroup'
 import { Link } from 'react-router-dom'
 
@@ -35,9 +34,7 @@ const Media = ({ product, handleOpen }) => {
             title='Contemplative Reptile'
             onClick={() => handleOpen(product)}
           />
-          <CardContent>
-            <StarRating />
-          </CardContent>
+          <CardContent />
           <ButtonGroup variant='text' color='primary' aria-label='text primary button group'>
             <Link to={`/Movies/${product.id}`}>
               {product.original_title}

@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react'
-import { createGlobalStyles } from '../Util/GlobalStyles'
+import React, { useContext } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
 import { UserContext } from '../components/UserContext'
 
 const Movies = () => {
-  const classesGlobal = createGlobalStyles()
   const { movies, setMovies } = useContext(UserContext)
 
   const fetchMovies = async () => {
@@ -18,8 +16,7 @@ const Movies = () => {
     const popularMoviesData = await popularMovies.json()
     const topRatedMoviesData = await topRatedMovies.json()
 
-    const popular = popularMoviesData.results.map((movie) => {
-      console.log(movie)
+    const popular = await popularMoviesData.results.map((movie) => {
       return {
         original_title: movie.original_title,
         poster_path: movie.poster_path,
@@ -30,7 +27,7 @@ const Movies = () => {
       }
     })
 
-    const topRated = topRatedMoviesData.results.map((movie) => {
+    const topRated = await topRatedMoviesData.results.map((movie) => {
       return {
         original_title: movie.original_title,
         poster_path: movie.poster_path,
@@ -40,15 +37,14 @@ const Movies = () => {
         comments: []
       }
     })
-    console.log(movies)
 
-    // TODO: bugg: movies sparas inte.
+    // TODO: bugg: movies sparas inte.  Svar: den sparas efter async funktionen, alltså om jag loggar precis ovanför retrun
     setMovies(topRated.concat(popular))
 
-    setTimeout(() => {
-      // TODO: Undersök varför movies blir en tom array här
-      console.log('movies', movies)
-    }, 5000)
+    // setTimeout(() => {
+    //   // TODO: Undersök varför movies blir en tom array här
+    //   console.log('movies', movies)
+    // }, 5000)
   }
 
   return <MediaDisplayer fetchMedia={fetchMovies} media={movies} />

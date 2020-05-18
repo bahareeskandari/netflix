@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import './App.css'
 import Navbar from './Navbar'
 import Profile from './pages/Profile'
@@ -7,11 +7,11 @@ import MyList from './pages/MyList'
 import TVShows from './pages/TVShows'
 import Footer from './Footer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { UserProvider, UserContext } from './components/UserContext'
+import { UserProvider } from './components/UserContext'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 import Movies from './pages/Movies'
-import { FirebaseProvider, FirebaseContext } from './Firebase/FirebaseContext'
+import { FirebaseProvider } from './Firebase/FirebaseContext'
 import StartPage from './pages/StartPage'
 import Trailer from './pages/Trailer'
 
@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 function App () {
   const classes = useStyles()
   // const classesGlobal = createGlobalStyles()
-  const { movies, setMovies } = useContext(UserContext)
 
   return (
     <div>

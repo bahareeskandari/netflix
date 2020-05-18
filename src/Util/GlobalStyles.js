@@ -1,18 +1,18 @@
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 export const createGlobalStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexGrow: 1,
-    backgroundColor: '#141414',
+    backgroundColor: '#141414'
   },
   searchBar: {
-    color: 'white',
+    color: 'white'
   },
   searchIcon: {
-    color: 'white',
+    color: 'white'
   },
   searchInput: {
-    textEmphasisColor: 'white', // NOT WORKING WHY
-  },
+    textEmphasisColor: 'white' // NOT WORKING WHY
+  }
 }))

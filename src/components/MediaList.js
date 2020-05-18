@@ -1,22 +1,19 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Media from './Media'
-import {Link, Route, BrowserRouter} from 'react-router-dom'
-import Popup from './Popup'
-import Trailer from '../pages/Trailer'
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+    color: theme.palette.text.secondary
+  }
 }))
-const MovieList = ({entertainments, handleOpen}) => {
+const MovieList = ({ entertainments, handleOpen }) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>

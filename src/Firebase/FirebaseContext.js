@@ -1,4 +1,4 @@
-import React, {useState, createContext} from 'react'
+import React, { createContext } from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -12,14 +12,14 @@ export const FirebaseProvider = (props) => {
     projectId: 'netflix-75751',
     storageBucket: 'netflix-75751.appspot.com',
     messagingSenderId: '419828713469',
-    appId: '1:419828713469:web:04f7fcd042feab69897b94',
+    appId: '1:419828713469:web:04f7fcd042feab69897b94'
   }
   // export default !firebase.apps.length ? firebase.initializeApp(config) : firebase.app();
   if (!firebase.apps.length) {
     firebase.initializeApp({
       apiKey: firebaseConfig.apiKey,
       authDomain: firebaseConfig.authDomain,
-      projectId: firebaseConfig.projectId,
+      projectId: firebaseConfig.projectId
     })
   } else {
     firebase.app()
@@ -67,7 +67,7 @@ export const FirebaseProvider = (props) => {
       })
   }
   return (
-    <FirebaseContext.Provider value={{onClickLogin, isAuth}}>
+    <FirebaseContext.Provider value={{ onClickLogin, isAuth }}>
       {props.children}
     </FirebaseContext.Provider>
   )

@@ -1,29 +1,17 @@
 // @flow
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import MediaList from './MediaList'
 import Container from '@material-ui/core/Container'
-import { makeStyles } from '@material-ui/core/styles'
 import { createGlobalStyles } from '../Util/GlobalStyles'
 import Popup from './Popup'
 import Grid from '@material-ui/core/Grid'
-import { UserContext } from './UserContext'
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    display: 'flex',
-    backgroundColor: '#141414'
-  }
-}))
 // API Key: 45c558de41ced2373b930108825d0ef8
 
 export default function MediaDisplayer ({ fetchMedia, media }) {
-  const classes = useStyles()
   const classesGlobal = createGlobalStyles()
-
   const [openModal, setOpenModal] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState(undefined)
-  const [input, setInput] = useState('')
-  const user = useContext(UserContext)
 
   useEffect(() => {
     fetchMedia()

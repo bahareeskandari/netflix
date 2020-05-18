@@ -1,12 +1,10 @@
-import React, {useState} from 'react'
-import {createGlobalStyles} from '../Util/GlobalStyles'
+import React, { useContext } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
-import {useContext} from 'react'
-import {UserContext} from '../components/UserContext'
+
+import { UserContext } from '../components/UserContext'
 
 const TVShows = () => {
-  const classesGlobal = createGlobalStyles()
-  const {tvShows, setTvShows} = useContext(UserContext)
+  const { tvShows, setTvShows } = useContext(UserContext)
 
   const fetchTvShows = async () => {
     const popularTvShows = await fetch(

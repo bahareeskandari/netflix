@@ -1,13 +1,10 @@
 import React from 'react'
-import Comment from './Comment'
 
-const Comments = ({comments}) => {
+const Comments = () => {
   return (
     <div>
       <h3>Comments</h3>
-      {comments.map((comment) => (
-        <Comment comment={comment} />
-      ))}
+
     </div>
   )
 }
