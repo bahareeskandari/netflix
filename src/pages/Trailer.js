@@ -15,6 +15,7 @@ import { red } from '@material-ui/core/colors'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import YouTube from 'react-youtube'
 
 const useStyles = makeStyles((theme) => ({
   margin: {

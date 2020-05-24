@@ -62,6 +62,7 @@ const App = () => {
   const classes = useStyles()
   const [authButtonLable, setAuthButtonLable] = useState('Login')
   const [anchorEl, setAnchorEl] = React.useState(null)
+  const [user, setUser] = useState(undefined)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -74,6 +75,7 @@ const App = () => {
   const handleLogOut = () => {}
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+      console.log(user.providerData[0].displayName)
       handleUserExists(user)
     } else {
       handleUserNotExists()
@@ -81,9 +83,9 @@ const App = () => {
   })
 
   const handleUserExists = (user) => {
+    setUser(user)
     setAuthButtonLable('Logout')
     if (!user.providerData.length) return
-
     window.localStorage.setItem('user', JSON.stringify(user.providerData[0]))
   }
   const handleUserNotExists = () => {
@@ -91,7 +93,19 @@ const App = () => {
     const user = window.localStorage.getItem('user')
     return JSON.parse(user)
   }
+  const handleSignOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(function () {
+        window.localStorage.removeItem('user')
+      })
+      .catch((error) => { console.log(error) })
+  }
   const onClickLogin = () => {
+    if (user) {
+      return handleSignOut()
+    }
     firebase
       .auth()
       .signInWithPopup(provider)
@@ -113,7 +127,7 @@ const App = () => {
       <Container className={classes.containerNav} maxWidth='xl'>
         <BrowserRouter>
           <UserProvider>
-            <FirebaseContext.Provider value={db}>
+            <FirebaseContext.Provider value={{ db, user }}>
               <AppBar position='static' color='transparent'>
                 <Toolbar>
                   <div className={classes.navLeft}>
@@ -133,12 +147,7 @@ const App = () => {
                     >
                       TV shows
                     </NavLink>
-                    <NavLink
-                      exact
-                      to='/'
-                      activeStyle={{ color: 'white' }}
-                      className={classes.link}
-                    >
+                    <NavLink exact to='/' activeStyle={{ color: 'white' }} className={classes.link}>
                       My list
                     </NavLink>
                     <NavLink
@@ -198,7 +207,6 @@ const App = () => {
               </Switch>
             </FirebaseContext.Provider>
             <Footer />
-
           </UserProvider>
         </BrowserRouter>
       </Container>

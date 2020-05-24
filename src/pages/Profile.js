@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { FirebaseContext } from '../Firebase/FirebaseContext'
 
 const Profile = () => {
   return (

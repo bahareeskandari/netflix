@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import { createContext } from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
 
@@ -20,5 +20,5 @@ firebase.initializeApp({
 
 export const db = firebase.firestore()
 export const provider = new firebase.auth.GoogleAuthProvider()
-const FirebaseContext = createContext(db)
+export const FirebaseContext = createContext(db)
 export default FirebaseContext
