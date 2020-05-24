@@ -3,18 +3,30 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
-import ButtonGroup from '@material-ui/core/ButtonGroup'
 import { Link } from 'react-router-dom'
+import CardActions from '@material-ui/core/CardActions'
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: '80px'
+  },
   root: {
-    maxWidth: 200
+
+    maxWidth: 445
   },
   paper: {
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary
+  },
+  links: {
+    color: '#5f6368',
+    textDecoration: 'none',
+    '&:hover': {
+      color: '#222'
+    }
   }
+
 }))
 
 const Media = ({ product, handleOpen }) => {
@@ -23,30 +35,20 @@ const Media = ({ product, handleOpen }) => {
 
   return (
     <>
-      <Grid item xs={3}>
+      <Grid item xs={3} className={classes.container}>
         <Card className={classes.root}>
           <CardMedia
             component='img'
             alt='Contemplative Reptile'
-            height='200'
+            height='340'
             image={imageFirstPart + product.poster_path}
             title='Contemplative Reptile'
             onClick={() => handleOpen(product)}
           />
 
-          {/* <CardContent>
-            <Typography
-              variant='body2'
-              color='textSecondary'
-              component='p'
-
-            >
-              <i className={product.valueOfHeart ? 'fas fa-heart' : 'far fa-heart'} onClick={() => handleHeartIcon(product)} />
-            </Typography>
-          </CardContent> */}
-          <ButtonGroup variant='text' color='primary' aria-label='text primary button group'>
-            <Link to={`/Movies/${product.id}`}>{product.original_title}</Link>
-          </ButtonGroup>
+          <CardActions className={classes.links}>
+            <Link className={classes.links} to={`/Movies/${product.id}`}>{product.original_title}</Link>
+          </CardActions>
         </Card>
       </Grid>
     </>

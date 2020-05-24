@@ -1,6 +1,7 @@
-import { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
+import { UserContext } from '../components/UserContext'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAB6_zqp4uJCjtiMOflBDIlZkASotSjXVg',
@@ -22,3 +23,33 @@ export const db = firebase.firestore()
 export const provider = new firebase.auth.GoogleAuthProvider()
 export const FirebaseContext = createContext(db)
 export default FirebaseContext
+
+export const FirebaseProvider = (props) => {
+  const { user, setUser } = useContext(UserContext)
+  console.log('user', user)
+
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      setUser(user)
+      if (!user.providerData.length) return
+      window.localStorage.setItem('user', JSON.stringify(user.providerData[0]))
+    } else {
+      const user = window.localStorage.getItem('user')
+
+      const userData = JSON.parse(user)
+      if (userData) { setUser(userData) } else {
+        setUser(null)
+      }
+    }
+  })
+
+  return (
+    <FirebaseContext.Provider value={db}>
+      {props.children}
+    </FirebaseContext.Provider>
+  )
+}
+
+/*
+
+*/

@@ -7,16 +7,19 @@ export const createGlobalStyles = makeStyles((theme) => ({
     backgroundColor: 'white'
   },
   searchBar: {
-    color: 'white'
+    color: '#fff'
   },
   searchIcon: {
-    color: 'white'
+    color: '#fff'
   },
   searchInput: {
-    textEmphasisColor: 'white' // NOT WORKING WHY
+    textEmphasisColor: '#fff' // NOT WORKING WHY
   },
   footer: {
-    backgroundColor: 'grey'
+    padding: '50px',
+    margin: '50px',
+    color: '#808080',
+    backgroundColor: '#141414'
   }
 
 }))
