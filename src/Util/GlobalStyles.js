@@ -4,7 +4,7 @@ export const createGlobalStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexGrow: 1,
-    backgroundColor: '#141414'
+    backgroundColor: 'white'
   },
   searchBar: {
     color: 'white'
@@ -14,5 +14,9 @@ export const createGlobalStyles = makeStyles((theme) => ({
   },
   searchInput: {
     textEmphasisColor: 'white' // NOT WORKING WHY
+  },
+  footer: {
+    backgroundColor: 'grey'
   }
+
 }))

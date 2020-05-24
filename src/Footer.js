@@ -6,7 +6,7 @@ import { createGlobalStyles } from './Util/GlobalStyles'
 const Footer = () => {
   const classesGlobal = createGlobalStyles()
   return (
-    <div className={classesGlobal.container}>
+    <div className={classesGlobal.footer}>
       <Container maxWidth='xl'>
         <footer>
           <Typography variant='h6' align='center' gutterBottom>

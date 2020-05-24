@@ -41,14 +41,16 @@ const Popup = ({ openModal, movie = {}, handleClose }) => {
   )
 
   return (
-    <Modal
-      open={openModal}
-      onClose={() => handleClose()}
-      aria-labelledby='simple-modal-title'
-      aria-describedby='simple-modal-description'
-    >
-      {body}
-    </Modal>
+    <div>
+      <Modal
+        open={openModal}
+        onClose={() => handleClose()}
+        aria-labelledby='simple-modal-title'
+        aria-describedby='simple-modal-description'
+      >
+        {body}
+      </Modal>
+    </div>
   )
 }
 export default Popup

@@ -14,11 +14,9 @@ import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import ShareIcon from '@material-ui/icons/Share'
-import Alert from '@material-ui/lab/Alert'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 
 const useStyles = makeStyles((theme) => ({
-
   margin: {
     margin: theme.spacing(1)
   },
@@ -55,22 +53,23 @@ const Trailer = ({ movieId }) => {
   const classes = useStyles()
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState([])
-  const { movies } = useContext(UserContext)
+  const { movies, tvShows } = useContext(UserContext)
   const [chosenTrailer, setChosenTrailer] = useState([])
   const [expanded, setExpanded] = React.useState(false)
   const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
 
+  const apiKeyYoutube = 'AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM'
+
   useEffect(() => {
     setChosenTrailer(movies.filter(movie => movie.id == movieId))
-  }, [])
+  }, [movieId, movies])
 
   const postComment = (comment) => {
-    console.log('the param', comment)
     setComments([...comments, comment])
     setComment('')
   }
   // TODO: bättre att söka upp filmens ID med array.find här inne istället.
-  console.log(comments)
+
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
@@ -94,12 +93,8 @@ const Trailer = ({ movieId }) => {
               id='filled-adornment-amount'
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-
+              onKeyDown={() => postComment(comment)}
             />
-
-            <Alert onClick={() => postComment(comment)} severity='success'>
-              Comment
-            </Alert>
 
           </CardContent>
           <CardActions disableSpacing>

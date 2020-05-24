@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import MediaList from './MediaList'
 import Container from '@material-ui/core/Container'
 import { createGlobalStyles } from '../Util/GlobalStyles'
@@ -8,14 +8,10 @@ import Grid from '@material-ui/core/Grid'
 
 // API Key: 45c558de41ced2373b930108825d0ef8
 
-export default function MediaDisplayer ({ fetchMedia, media }) {
+export default function MediaDisplayer ({ media }) {
   const classesGlobal = createGlobalStyles()
   const [openModal, setOpenModal] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState(undefined)
-
-  useEffect(() => {
-    fetchMedia()
-  }, [])
 
   const handleOpen = (movie) => {
     setSelectedMovie(movie)
@@ -39,6 +35,7 @@ export default function MediaDisplayer ({ fetchMedia, media }) {
               openModal={openModal}
               entertainments={media}
             />
+
           </Grid>
         </Grid>
       </Container>
