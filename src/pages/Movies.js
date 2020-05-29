@@ -6,7 +6,9 @@ const Movies = () => {
   const { movies, setMovies } = useContext(UserContext)
 
   useEffect(() => {
+    // todo: hade varit finare om fetchMovies var i en handlers/apiHander.js
     const fetchMovies = async () => {
+      // todo skapa en Util/constants.js som innehåller dessa URLer, importera dem.
       const popularMovies = await fetch(
         'https://api.themoviedb.org/3/movie/popular?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
       )

@@ -59,6 +59,18 @@ const Trailer = ({ movieId }) => {
   const [expanded, setExpanded] = React.useState(false)
   const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
 
+  /**
+  // todo: skapa en keys.json och lägg in denna där.
+
+  {
+    "apiKeyYoutube": "AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM"
+  }
+
+  sen importera keys och skriv keys.apiKeyYoutube för att få värdet
+
+  lägg till keys.json högst upp i din .gitignore
+   */
+
   const apiKeyYoutube = 'AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM'
 
   useEffect(() => {

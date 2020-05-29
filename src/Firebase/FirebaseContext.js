@@ -3,6 +3,9 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import { UserContext } from '../components/UserContext'
 
+// todo: flytta även alla dessa till keys.json se min andra kommentar
+// import keys from '../../keys.json'
+// const {apiKey, etc, etc} = keys
 const firebaseConfig = {
   apiKey: 'AIzaSyAB6_zqp4uJCjtiMOflBDIlZkASotSjXVg',
   authDomain: 'netflix-75751.firebaseapp.com',

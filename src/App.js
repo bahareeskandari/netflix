@@ -1,4 +1,5 @@
 import React from 'react'
+// todo: ta bort om denna inte behövs
 import './App.css'
 import Profile from './pages/Profile'
 import MyList from './pages/MyList'

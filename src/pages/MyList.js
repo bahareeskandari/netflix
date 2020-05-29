@@ -1,3 +1,4 @@
+// todo: vad är detta? ta bort om ej behövs
 import React from 'react'
 
 const MyList = () => {
