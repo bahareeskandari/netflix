@@ -26,11 +26,11 @@ export default FirebaseContext
 
 export const FirebaseProvider = (props) => {
   const { user, setUser } = useContext(UserContext)
-  console.log('user', user)
 
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      setUser(user)
+      setUser(user.providerData[0])
+      console.log(user.providerData[0].displayName)
       if (!user.providerData.length) return
       window.localStorage.setItem('user', JSON.stringify(user.providerData[0]))
     } else {

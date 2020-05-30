@@ -1,18 +1,18 @@
 import React, { useContext, useEffect } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
 import { UserContext } from '../components/UserContext'
+import { popularMoviesUrl, topRatedMoviesUrl } from '../Util/Constants'
 
 const Movies = () => {
   const { movies, setMovies } = useContext(UserContext)
 
   useEffect(() => {
+    // todo: hade varit finare om fetchMovies var i en handlers/apiHander.js
+
+    // todo skapa en Util/constants.js som innehåller dessa URLer, importera dem.
     const fetchMovies = async () => {
-      const popularMovies = await fetch(
-        'https://api.themoviedb.org/3/movie/popular?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
-      )
-      const topRatedMovies = await fetch(
-        'https://api.themoviedb.org/3/movie/top_rated?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
-      )
+      const popularMovies = await fetch(popularMoviesUrl)
+      const topRatedMovies = await fetch(topRatedMoviesUrl)
 
       const popularMoviesData = await popularMovies.json()
       const topRatedMoviesData = await topRatedMovies.json()

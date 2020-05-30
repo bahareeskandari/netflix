@@ -58,11 +58,19 @@ const Trailer = ({ movieId }) => {
   const [chosenTrailer, setChosenTrailer] = useState([])
   const [expanded, setExpanded] = React.useState(false)
   const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
-
+  const { user, setUser } = useContext(UserContext)
+  /**
+  // todo: skapa en keys.json och lägg in denna där.
+  {
+    "apiKeyYoutube": "AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM"
+  }
+  sen importera keys och skriv keys.apiKeyYoutube för att få värdet
+  lägg till keys.json högst upp i din .gitignore
+   */
   const apiKeyYoutube = 'AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM'
 
   useEffect(() => {
-    setChosenTrailer(movies.filter(movie => movie.id == movieId))
+    setChosenTrailer(movies.filter((movie) => movie.id == movieId))
   }, [movieId, movies])
 
   const postComment = (comment) => {
@@ -76,8 +84,7 @@ const Trailer = ({ movieId }) => {
   }
   return (
     <div className={classes.root}>
-      {chosenTrailer.map(movie => (
-
+      {chosenTrailer.map((movie) => (
         <Card key={movie.id}>
           <CardMedia
             className={classes.media}
@@ -96,7 +103,6 @@ const Trailer = ({ movieId }) => {
               onChange={(e) => setComment(e.target.value)}
               onKeyDown={() => postComment(comment)}
             />
-
           </CardContent>
           <CardActions disableSpacing>
             <IconButton aria-label='add to favorites'>
@@ -115,27 +121,20 @@ const Trailer = ({ movieId }) => {
               aria-label='show more'
             >
               <ExpandMoreIcon />
-
             </IconButton>
-
           </CardActions>
           <Collapse in={expanded} timeout='auto' unmountOnExit>
             <CardContent>
-
-              {comments.map((comment, idx) => (
-                <Typography key={idx} paragraph>
-                  {comment}
-                </Typography>
-              ))}
-
+              <ul>
+                {comments.map((comment, idx) => (
+                  <li key={idx}>{comment}</li>
+                ))}
+              </ul>
             </CardContent>
           </Collapse>
         </Card>
-
       ))}
-
     </div>
-
   )
 }
 export default Trailer
