@@ -7,9 +7,8 @@ const Movies = () => {
   const { movies, setMovies } = useContext(UserContext)
 
   useEffect(() => {
-    // todo: hade varit finare om fetchMovies var i en handlers/apiHander.js
+    // todo: hade varit finare om fetchMovies var i en handlers/apiHander.js. Svar: försökte men setMovies som kallas inuti skopen kommer ej att vara definerat i den andra filen
 
-    // todo skapa en Util/constants.js som innehåller dessa URLer, importera dem.
     const fetchMovies = async () => {
       const popularMovies = await fetch(popularMoviesUrl)
       const topRatedMovies = await fetch(topRatedMoviesUrl)
@@ -22,10 +21,7 @@ const Movies = () => {
           original_title: movie.original_title,
           poster_path: movie.poster_path,
           id: movie.id,
-          overview: movie.overview,
-          valueOfHeart: false,
-          rating: null,
-          comments: []
+          overview: movie.overview
         }
       })
 
@@ -34,20 +30,10 @@ const Movies = () => {
           original_title: movie.original_title,
           poster_path: movie.poster_path,
           id: movie.id,
-          overview: movie.overview,
-          valueOfHeart: false,
-          rating: null,
-          comments: []
+          overview: movie.overview
         }
       })
-
-      // TODO: bugg: movies sparas inte.  Svar: den sparas efter async funktionen, alltså om jag loggar precis ovanför retrun
       await setMovies(topRated.concat(popular))
-
-      // setTimeout(() => {
-      //   // TODO: Undersök varför movies blir en tom array här
-      //   console.log('movies', movies)
-      // }, 5000)
     }
     fetchMovies()
   }, [])

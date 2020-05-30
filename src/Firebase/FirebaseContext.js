@@ -34,7 +34,7 @@ export const FirebaseProvider = (props) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       setUser(user.providerData[0])
-      console.log(user.providerData[0].displayName)
+
       if (!user.providerData.length) return
       window.localStorage.setItem('user', JSON.stringify(user.providerData[0]))
     } else {
@@ -53,7 +53,3 @@ export const FirebaseProvider = (props) => {
     </FirebaseContext.Provider>
   )
 }
-
-/*
-
-*/

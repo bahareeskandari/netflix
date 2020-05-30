@@ -70,6 +70,7 @@ const RoutingWrapper = () => {
       .signOut()
       .then(function () {
         window.localStorage.removeItem('user')
+
         setUser(null)
       })
       .catch((error) => { console.log(error) })

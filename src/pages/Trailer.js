@@ -4,17 +4,11 @@ import { makeStyles } from '@material-ui/core/styles'
 import FilledInput from '@material-ui/core/FilledInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import CardMedia from '@material-ui/core/CardMedia'
-import clsx from 'clsx'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
-import Collapse from '@material-ui/core/Collapse'
-import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import ShareIcon from '@material-ui/icons/Share'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import YouTube from 'react-youtube'
 
 const useStyles = makeStyles((theme) => ({
@@ -47,18 +41,37 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: red[500]
+  },
+  userName: {
+    opacity: '0.5',
+    fontSize: '10px'
+  },
+  addBtn: {
+    backgroundColor: 'gray',
+    width: '120px',
+    height: '30px',
+    border: '0px solid transparent',
+    marginLeft: '5px',
+    borderRadius: '0.25px'
+
   }
 }))
 
 const Trailer = ({ movieId }) => {
   const classes = useStyles()
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState({
+    input: '',
+    val: false
+  })
+  const [editComment, setEditComment] = useState({
+    input: '',
+    val: false
+  })
   const [comments, setComments] = useState([])
   const { movies, tvShows } = useContext(UserContext)
   const [chosenTrailer, setChosenTrailer] = useState([])
-  const [expanded, setExpanded] = React.useState(false)
-  const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
 
+  const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
   const { user, setUser } = useContext(UserContext)
   /**
   // todo: skapa en keys.json och lägg in denna där.
@@ -66,8 +79,7 @@ const Trailer = ({ movieId }) => {
     "apiKeyYoutube": "AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM"
   }
   sen importera keys och skriv keys.apiKeyYoutube för att få värdet
-  lägg till keys.json högst upp i din .gitignore
-   */
+*/
 
   const apiKeyYoutube = 'AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM'
 
@@ -76,14 +88,17 @@ const Trailer = ({ movieId }) => {
   }, [movieId, movies])
 
   const postComment = (comment) => {
-    setComments([...comments, comment])
-    setComment('')
+    setEditComment({ input: '', editMode: false })
+    setComments([comment, ...comments])
+    setComment({ input: '', editMode: false })
   }
   // TODO: bättre att söka upp filmens ID med array.find här inne istället.
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
+  const handleEditComment = (theComment) => {
+    theComment.editMode = true
+    setEditComment({ input: theComment.input, editMode: false })
   }
+
   return (
     <div className={classes.root}>
       {chosenTrailer.map((movie) => (
@@ -98,42 +113,45 @@ const Trailer = ({ movieId }) => {
               {movie.overview}
             </Typography>
 
-            <InputLabel htmlFor='filled-adornment-amount'>something</InputLabel>
+            <InputLabel htmlFor='filled-adornment-amount'>Add Your comment</InputLabel>
             <FilledInput
               id='filled-adornment-amount'
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              onKeyDown={() => postComment(comment)}
+              value={comment.input}
+              onChange={(e) => setComment({ input: e.target.value, editMode: false })}
             />
+            <button className={classes.addBtn} onClick={() => postComment(comment)}>add</button>
           </CardContent>
-          <CardActions disableSpacing>
-            <IconButton aria-label='add to favorites'>
-              <FavoriteIcon />
-            </IconButton>
-            <IconButton aria-label='share'>
-              <ShareIcon />
-            </IconButton>
 
-            <IconButton
-              className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded
-              })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label='show more'
-            >
-              <ExpandMoreIcon />
-            </IconButton>
-          </CardActions>
-          <Collapse in={expanded} timeout='auto' unmountOnExit>
-            <CardContent>
-              <ul>
-                {comments.map((comment, idx) => (
-                  <li key={idx}>{comment}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Collapse>
+          <CardContent>
+            {comments.map((comment, idx) => {
+              return (comment.editMode) ? (
+                <div>
+                  <p className={classes.userName}>{user.displayName}</p>
+                  <FilledInput type='text' value={editComment.input} onChange={(e) => setEditComment({ input: e.target.value, editMode: false })} />
+                  <button
+                    className={classes.addBtn} onClick={() => {
+                      comment.editMode = false
+
+                      postComment(editComment)
+                    }}
+                  >done editing comment
+                  </button>
+
+                </div>
+              ) : (
+                <div
+
+                  onDoubleClick={() => handleEditComment(comment)}
+                  key={idx}
+                >
+                  <p className={classes.userName}>{user.displayName}</p>
+                  {comment.input}
+
+                </div>
+              )
+            })}
+
+          </CardContent>
         </Card>
       ))}
     </div>

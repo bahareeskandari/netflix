@@ -70,7 +70,6 @@ const App = () => {
                 <Route
                   path='/Movies/:proId'
                   render={({ match }) => {
-                    console.log(match)
                     return <Trailer movieId={match.params.proId} />
                   }}
                 />
