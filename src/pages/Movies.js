@@ -8,22 +8,11 @@ const Movies = () => {
 
   useEffect(() => {
     // todo: hade varit finare om fetchMovies var i en handlers/apiHander.js
-<<<<<<< HEAD
 
     // todo skapa en Util/constants.js som innehåller dessa URLer, importera dem.
     const fetchMovies = async () => {
       const popularMovies = await fetch(popularMoviesUrl)
       const topRatedMovies = await fetch(topRatedMoviesUrl)
-=======
-    const fetchMovies = async () => {
-      // todo skapa en Util/constants.js som innehåller dessa URLer, importera dem.
-      const popularMovies = await fetch(
-        'https://api.themoviedb.org/3/movie/popular?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
-      )
-      const topRatedMovies = await fetch(
-        'https://api.themoviedb.org/3/movie/top_rated?api_key=45c558de41ced2373b930108825d0ef8&language=en-US&page=1'
-      )
->>>>>>> ca4c066d53740a65b0247ec6f1f65bd84807f82a
 
       const popularMoviesData = await popularMovies.json()
       const topRatedMoviesData = await topRatedMovies.json()
