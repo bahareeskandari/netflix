@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 // todo: ta bort om denna inte behövs
 import './App.css'
 import Profile from './pages/Profile'

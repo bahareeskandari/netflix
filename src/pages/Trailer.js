@@ -10,6 +10,9 @@ import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
 import YouTube from 'react-youtube'
+import { apiKeyYoutube } from '../Keys.json'
+import YoutubeWrapper from '../components/YoutubeWrapper'
+import { keyYoutube } from '../Util/Constants'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -53,61 +56,108 @@ const useStyles = makeStyles((theme) => ({
     border: '0px solid transparent',
     marginLeft: '5px',
     borderRadius: '0.25px'
-
   }
 }))
 
 const Trailer = ({ movieId }) => {
   const classes = useStyles()
-  const [comment, setComment] = useState({
-    input: '',
-    val: false
-  })
-  const [editComment, setEditComment] = useState({
-    input: '',
-    val: false
-  })
-  const [comments, setComments] = useState([])
   const { movies, tvShows } = useContext(UserContext)
-  const [chosenTrailer, setChosenTrailer] = useState([])
-
-  const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
-  const { user, setUser } = useContext(UserContext)
-  /**
-  // todo: skapa en keys.json och lägg in denna där.
-  {
-    "apiKeyYoutube": "AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM"
+  const [chosenTrailer, setChosenTrailer] = useState(movies[movieId])
+  const [titleOf, setTitleOf] = useState(chosenTrailer.original_title)
+  const [urlSearch, setUrlSearch] = useState('')
+  const [inputComment, setInputComment] = useState('')
+  const [commentsArray, setCommentsArray] = useState([])
+  const [chosenComment, setChosenComment] = useState(null)
+  const opts = {
+    height: '394',
+    width: '1000'
   }
-  sen importera keys och skriv keys.apiKeyYoutube för att få värdet
-*/
 
-  const apiKeyYoutube = 'AIzaSyAfWZGuXaHJDi2HXN8c9j_W1nATC6JI8nM'
+  const { user, setUser } = useContext(UserContext)
+  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${keyYoutube}&q=${titleOf}%20trailer`
 
   useEffect(() => {
-    setChosenTrailer(movies.filter((movie) => movie.id == movieId))
-  }, [movieId, movies])
+    fetch(urlYoutube)
+      .then((res) => res.json())
+      .then((r) => setUrlSearch(r.items[0].id.videoId))
+  }, [])
 
-  const postComment = (comment) => {
-    setEditComment({ input: '', editMode: false })
-    setComments([comment, ...comments])
-    setComment({ input: '', editMode: false })
-  }
-  // TODO: bättre att söka upp filmens ID med array.find här inne istället.
-
-  const handleEditComment = (theComment) => {
-    theComment.editMode = true
-    setEditComment({ input: theComment.input, editMode: false })
-  }
+  const handleAddComment = (comment) => {
+    setCommentsArray([...commentsArray, comment])
+    setInputComment('')
+  } /*
+                   ( <li key={index} onDoubleClick={() => setChosenComment(index)}>{comment}</li>) :
+                  ( <li key={index} onDoubleClick={() => setChosenComment(index)}>{comment}</li>)
+  */
 
   return (
     <div className={classes.root}>
+      {chosenTrailer ? (
+        <Card>
+          <CardContent>
+            <CardContent>
+              <YouTube videoId={urlSearch} opts={opts} />
+            </CardContent>
+            <Typography variant='body2' color='textSecondary' component='p'>
+              {chosenTrailer.overview}
+            </Typography>
+
+            <InputLabel htmlFor='filled-adornment-amount'>Add Your comment</InputLabel>
+            <input
+
+              value={inputComment}
+              onChange={(e) => setInputComment(e.target.value)}
+            />
+          </CardContent>
+          <button onClick={() => handleAddComment(inputComment)}>add</button>
+          <CardContent>
+            {commentsArray.map((comment, index) =>
+              !chosenComment ? ( // om chosencomment är falsk
+
+                <li key={index} onDoubleClick={() => setChosenComment(index)}>
+                  {comment}
+                </li>
+              ) : (
+
+                <input id='fieke' value={commentsArray[chosenComment]} />
+              )
+            )}
+          </CardContent>
+        </Card>
+      ) : null}
+    </div>
+  )
+}
+export default Trailer
+
+// TODO: bättre att söka upp filmens ID med array.find här inne istället.
+
+/*
+dubbelklick
+input med value som är den man har klickat på, med den senaste kommentaren
+
+redigera
+klickar på knapp som dyker upp
+-------
+
+vid dubbelklick spara index på kommentaren jag har dubbelklickat på . setEditComment(integer)
+value = comments[editcomment]
+skapa input med value = comments[editcomment]
+onchange ny editingComment state
+editingComment('')
+setEditComment(null)
+postComment()
+gå till indexet som finns i editComment och ta texten i editingComment sen sätt comment till
+if editingCoemment är tom string så ta bort comment med det indexet,
+
+*/
+
+/*
+     <div className={classes.root}>
+      {console.log('after return')}
       {chosenTrailer.map((movie) => (
         <Card key={movie.id}>
-          <CardMedia
-            className={classes.media}
-            image={imageFirstPart + movie.poster_path}
-            title={movie.original_title}
-          />
+
           <CardContent>
             <Typography variant='body2' color='textSecondary' component='p'>
               {movie.overview}
@@ -119,42 +169,41 @@ const Trailer = ({ movieId }) => {
               value={comment.input}
               onChange={(e) => setComment({ input: e.target.value, editMode: false })}
             />
-            <button className={classes.addBtn} onClick={() => postComment(comment)}>add</button>
-          </CardContent>
+            <button className={classes.addBtn} onClick={() => postComment(comment)}>
+              add
+            </button>
+            </CardContent>
 
-          <CardContent>
-            {comments.map((comment, idx) => {
-              return (comment.editMode) ? (
-                <div>
-                  <p className={classes.userName}>{user.displayName}</p>
-                  <FilledInput type='text' value={editComment.input} onChange={(e) => setEditComment({ input: e.target.value, editMode: false })} />
-                  <button
-                    className={classes.addBtn} onClick={() => {
-                      comment.editMode = false
-
-                      postComment(editComment)
-                    }}
-                  >done editing comment
-                  </button>
-
-                </div>
-              ) : (
-                <div
-
-                  onDoubleClick={() => handleEditComment(comment)}
-                  key={idx}
-                >
-                  <p className={classes.userName}>{user.displayName}</p>
-                  {comment.input}
-
-                </div>
-              )
-            })}
-
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  )
-}
-export default Trailer
+            <CardContent>
+          {comments.map((comment, idx) => {
+                return !editComment || editComment !== 0 ? (
+                  <div>
+                    <p className={classes.userName}>{user.displayName}</p>
+                    <FilledInput
+                      type='text'
+                      value={editComment.input}
+                      onChange={(e) => setEditComment({ input: e.target.value, editMode: false })}
+                    />
+                    <button
+                      className={classes.addBtn}
+                      onClick={() => {
+                        comment.editMode = false
+                        // setComments(comments.filter((com, id) => id !== idx))
+                        postComment(editComment)
+                      }}
+                    >
+                      done editing comment
+                    </button>
+                  </div>
+                ) : (
+                  <div onDoubleClick={() => handleEditComment(idx)} key={idx}>
+                    <p className={classes.userName}>{user.displayName}</p>
+                    {comment.input}
+                  </div>
+                )
+              })}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+ */

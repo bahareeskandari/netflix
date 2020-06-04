@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const Media = ({ product, handleOpen }) => {
+const Media = ({ product, handleOpen, idx }) => {
   const classes = useStyles()
   const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
 
@@ -47,7 +47,7 @@ const Media = ({ product, handleOpen }) => {
           />
 
           <CardActions className={classes.links}>
-            <Link className={classes.links} to={`/Movies/${product.id}`}>{product.original_title}</Link>
+            <Link className={classes.links} to={`/Movies/${idx}`}>{product.original_title}</Link>
           </CardActions>
         </Card>
       </Grid>

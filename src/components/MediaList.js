@@ -20,7 +20,7 @@ const MovieList = ({ entertainments, handleOpen }) => {
       <Grid container spacing={1}>
         <Grid container item xs={12} spacing={3}>
           {entertainments.map((product, idx) => (
-            <Media handleOpen={handleOpen} key={idx} product={product} />
+            <Media handleOpen={handleOpen} key={idx} product={product} idx={idx} />
           ))}
         </Grid>
       </Grid>
