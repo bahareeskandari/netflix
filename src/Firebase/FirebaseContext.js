@@ -18,8 +18,8 @@ if (process.env.NODE_ENV === 'production') {
 // const {apiKey, etc, etc} = keys
 
 firebase.initializeApp({
-  apiKey: firebaseConfig.apiKey,
-  authDomain: firebaseConfig.authDomain,
+  apiKey: 'AIzaSyAB6_zqp4uJCjtiMOflBDIlZkASotSjXVg',
+  authDomain: 'netflix-75751.firebaseapp.com',
   projectId: 'netflix-75751'
 })
 
