@@ -65,9 +65,12 @@ const Trailer = ({ movieId }) => {
   const [chosenTrailer, setChosenTrailer] = useState(movies[movieId])
   const [titleOf, setTitleOf] = useState(chosenTrailer.original_title)
   const [urlSearch, setUrlSearch] = useState('')
+
   const [inputComment, setInputComment] = useState('')
   const [commentsArray, setCommentsArray] = useState([])
-  const [chosenComment, setChosenComment] = useState(null)
+  const [chosenCommentIndex, setchosenCommentIndex] = useState(null)
+  const [editCommentValue, setEditCommentValue] = useState(null)
+
   const opts = {
     height: '394',
     width: '1000'
@@ -85,10 +88,13 @@ const Trailer = ({ movieId }) => {
   const handleAddComment = (comment) => {
     setCommentsArray([...commentsArray, comment])
     setInputComment('')
-  } /*
-                   ( <li key={index} onDoubleClick={() => setChosenComment(index)}>{comment}</li>) :
-                  ( <li key={index} onDoubleClick={() => setChosenComment(index)}>{comment}</li>)
-  */
+  }
+  const handleAddEditedComment = (comment) => {
+    const newCommentsArray = [...commentsArray]
+    newCommentsArray.splice(chosenCommentIndex, 1, comment)
+    setCommentsArray(newCommentsArray)
+    setchosenCommentIndex(null)
+  }
 
   return (
     <div className={classes.root}>
@@ -112,14 +118,28 @@ const Trailer = ({ movieId }) => {
           <button onClick={() => handleAddComment(inputComment)}>add</button>
           <CardContent>
             {commentsArray.map((comment, index) =>
-              !chosenComment ? ( // om chosencomment är falsk
-
-                <li key={index} onDoubleClick={() => setChosenComment(index)}>
+              chosenCommentIndex === index ? (
+                <>
+                  <input
+                    id='fieke' value={editCommentValue}
+                    onChange={(e) => setEditCommentValue(e.target.value)}
+                  />
+                  <button onClick={() => {
+                    handleAddEditedComment(editCommentValue)
+                  }}
+                  >add
+                  </button>
+                </>
+              ) : (
+                <li
+                  key={index} onDoubleClick={() => {
+                    setEditCommentValue(commentsArray[index])
+                    setchosenCommentIndex(index)
+                  }}
+                >
                   {comment}
                 </li>
-              ) : (
 
-                <input id='fieke' value={commentsArray[chosenComment]} />
               )
             )}
           </CardContent>
@@ -129,81 +149,3 @@ const Trailer = ({ movieId }) => {
   )
 }
 export default Trailer
-
-// TODO: bättre att söka upp filmens ID med array.find här inne istället.
-
-/*
-dubbelklick
-input med value som är den man har klickat på, med den senaste kommentaren
-
-redigera
-klickar på knapp som dyker upp
--------
-
-vid dubbelklick spara index på kommentaren jag har dubbelklickat på . setEditComment(integer)
-value = comments[editcomment]
-skapa input med value = comments[editcomment]
-onchange ny editingComment state
-editingComment('')
-setEditComment(null)
-postComment()
-gå till indexet som finns i editComment och ta texten i editingComment sen sätt comment till
-if editingCoemment är tom string så ta bort comment med det indexet,
-
-*/
-
-/*
-     <div className={classes.root}>
-      {console.log('after return')}
-      {chosenTrailer.map((movie) => (
-        <Card key={movie.id}>
-
-          <CardContent>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {movie.overview}
-            </Typography>
-
-            <InputLabel htmlFor='filled-adornment-amount'>Add Your comment</InputLabel>
-            <FilledInput
-              id='filled-adornment-amount'
-              value={comment.input}
-              onChange={(e) => setComment({ input: e.target.value, editMode: false })}
-            />
-            <button className={classes.addBtn} onClick={() => postComment(comment)}>
-              add
-            </button>
-            </CardContent>
-
-            <CardContent>
-          {comments.map((comment, idx) => {
-                return !editComment || editComment !== 0 ? (
-                  <div>
-                    <p className={classes.userName}>{user.displayName}</p>
-                    <FilledInput
-                      type='text'
-                      value={editComment.input}
-                      onChange={(e) => setEditComment({ input: e.target.value, editMode: false })}
-                    />
-                    <button
-                      className={classes.addBtn}
-                      onClick={() => {
-                        comment.editMode = false
-                        // setComments(comments.filter((com, id) => id !== idx))
-                        postComment(editComment)
-                      }}
-                    >
-                      done editing comment
-                    </button>
-                  </div>
-                ) : (
-                  <div onDoubleClick={() => handleEditComment(idx)} key={idx}>
-                    <p className={classes.userName}>{user.displayName}</p>
-                    {comment.input}
-                  </div>
-                )
-              })}
-            </CardContent>
-          </Card>
-        ))}
-      </div>
- */
