@@ -4,7 +4,11 @@ import 'firebase/firestore'
 import { UserContext } from '../components/UserContext'
 let firebaseConfig
 if (process.env.NODE_ENV === 'production') {
-  firebaseConfig = process.env
+  firebaseConfig = {
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId
+  }
 } else {
   firebaseConfig = require('../Keys.json')
 }
