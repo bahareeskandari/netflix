@@ -15,7 +15,7 @@ require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
 let Keys
-if (process.env.production) {
+if (process.env.NODE_ENV === 'production') {
   Keys = process.env
 } else {
   Keys = require('../Keys.json')
