@@ -1,4 +1,6 @@
-const fetchMovies = async () => {
+import { popularMoviesUrl, topRatedMoviesUrl } from '../Util/Constants'
+
+export const fetchMovies = async () => {
   const popularMovies = await fetch(popularMoviesUrl)
   const topRatedMovies = await fetch(topRatedMoviesUrl)
 
@@ -22,5 +24,5 @@ const fetchMovies = async () => {
       overview: movie.overview
     }
   })
-  await setMovies(topRated.concat(popular)) /// / MEN SETMOVIES kmr ej vara defienreat här?
+  return { topRated, popular }
 }

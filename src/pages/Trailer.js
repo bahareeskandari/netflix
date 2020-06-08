@@ -12,7 +12,6 @@ import { red } from '@material-ui/core/colors'
 import YouTube from 'react-youtube'
 import { apiKeyYoutube } from '../Keys.json'
 import YoutubeWrapper from '../components/YoutubeWrapper'
-import { keyYoutube } from '../Util/Constants'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -77,7 +76,7 @@ const Trailer = ({ movieId }) => {
   }
 
   const { user, setUser } = useContext(UserContext)
-  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${keyYoutube}&q=${titleOf}%20trailer`
+  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${apiKeyYoutube}&q=${titleOf}%20trailer`
 
   useEffect(() => {
     fetch(urlYoutube)
@@ -94,6 +93,9 @@ const Trailer = ({ movieId }) => {
     newCommentsArray.splice(chosenCommentIndex, 1, comment)
     setCommentsArray(newCommentsArray)
     setchosenCommentIndex(null)
+  }
+  const handleDeleteComment = (idx) => {
+    // setCommentsArray([commentsArray.filter(comme)])
   }
 
   return (
@@ -131,15 +133,21 @@ const Trailer = ({ movieId }) => {
                   </button>
                 </>
               ) : (
-                <li
-                  key={index} onDoubleClick={() => {
-                    setEditCommentValue(commentsArray[index])
-                    setchosenCommentIndex(index)
+                <div>
+                  <li
+                    key={index} onDoubleClick={() => {
+                      setEditCommentValue(commentsArray[index])
+                      setchosenCommentIndex(index)
+                    }}
+                  >
+                    {comment}
+                  </li>
+                  <button onClick={() => {
+                    handleDeleteComment(index)
                   }}
-                >
-                  {comment}
-                </li>
-
+                  >x
+                  </button>
+                </div>
               )
             )}
           </CardContent>

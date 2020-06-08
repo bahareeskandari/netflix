@@ -2,20 +2,11 @@ import React, { createContext, useContext } from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
 import { UserContext } from '../components/UserContext'
+import firebaseConfig from '../Keys.json'
 
 // todo: flytta även alla dessa till keys.json se min andra kommentar
 // import keys from '../../keys.json'
 // const {apiKey, etc, etc} = keys
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyAB6_zqp4uJCjtiMOflBDIlZkASotSjXVg',
-  authDomain: 'netflix-75751.firebaseapp.com',
-  databaseURL: 'https:netflix-75751.firebaseio.com',
-  projectId: 'netflix-75751',
-  storageBucket: 'netflix-75751.appspot.com',
-  messagingSenderId: '419828713469',
-  appId: '1:419828713469:web:04f7fcd042feab69897b94'
-}
 
 firebase.initializeApp({
   apiKey: firebaseConfig.apiKey,
