@@ -6,8 +6,8 @@ let firebaseConfig
 if (process.env.NODE_ENV === 'production') {
   firebaseConfig = {
     apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId
+    authDomain: process.env.authDomain
+
   }
 } else {
   firebaseConfig = require('../Keys.json')
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 firebase.initializeApp({
   apiKey: firebaseConfig.apiKey,
   authDomain: firebaseConfig.authDomain,
-  projectId: firebaseConfig.projectId
+  projectId: 'netflix-75751'
 })
 
 export const db = firebase.firestore()
