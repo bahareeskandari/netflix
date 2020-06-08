@@ -2,7 +2,12 @@ import React, { createContext, useContext } from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
 import { UserContext } from '../components/UserContext'
-import firebaseConfig from '../Keys.json'
+let firebaseConfig
+if (process.env.production) {
+  firebaseConfig = process.env
+} else {
+  firebaseConfig = require('../Keys.json')
+}
 
 // todo: flytta även alla dessa till keys.json se min andra kommentar
 // import keys from '../../keys.json'

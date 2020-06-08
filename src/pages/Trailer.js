@@ -10,8 +10,16 @@ import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
 import YouTube from 'react-youtube'
-import { apiKeyYoutube } from '../Keys.json'
 import YoutubeWrapper from '../components/YoutubeWrapper'
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
+
+let Keys
+if (process.env.production) {
+  Keys = process.env
+} else {
+  Keys = require('../Keys.json')
+}
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -76,7 +84,7 @@ const Trailer = ({ movieId }) => {
   }
 
   const { user, setUser } = useContext(UserContext)
-  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${apiKeyYoutube}&q=${titleOf}%20trailer`
+  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${Keys.apiKeyYoutube}&q=${titleOf}%20trailer`
 
   useEffect(() => {
     fetch(urlYoutube)

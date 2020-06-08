@@ -1,4 +1,11 @@
-import Keys from '../Keys.json'
+
+let Keys
+if (process.env.production) {
+  Keys = process.env
+} else {
+  Keys = require('../Keys.json')
+}
+
 const { movieKey } = Keys
 export const popularMoviesUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${movieKey}&language=en-US&page=1`
 export const popularMoviesUrl2 = `https://api.themoviedb.org/3/movie/popular?api_key=${movieKey}&language=en-US&page=2`

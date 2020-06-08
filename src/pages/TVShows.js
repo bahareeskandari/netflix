@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react'
 import { popularTvsShows, topRatedTvShows } from '../Util/Constants'
 import MediaDisplayer from '../components/MediaDisplayer'
-
 import { UserContext } from '../components/UserContext'
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
 
 const TVShows = () => {
   const { tvShows, setTvShows } = useContext(UserContext)

@@ -1,4 +1,6 @@
 import { popularMoviesUrl, topRatedMoviesUrl } from '../Util/Constants'
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
 
 export const fetchMovies = async () => {
   const popularMovies = await fetch(popularMoviesUrl)
