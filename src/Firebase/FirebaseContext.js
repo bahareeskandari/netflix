@@ -5,22 +5,19 @@ import { UserContext } from '../components/UserContext'
 let firebaseConfig
 if (process.env.NODE_ENV === 'production') {
   firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain
-
+    REACT_APP_APIKEY: process.env.REACT_APP_APIKEY,
+    REACT_APP_AUTHDOMAIN: process.env.REACT_APP_AUTHDOMAIN,
+    REACT_APP_PROJECTID: process.env.REACT_APP_PROJECTID
   }
 } else {
   firebaseConfig = require('../Keys.json')
+  console.log(firebaseConfig)
 }
 
-// todo: flytta även alla dessa till keys.json se min andra kommentar
-// import keys from '../../keys.json'
-// const {apiKey, etc, etc} = keys
-
 firebase.initializeApp({
-  apiKey: 'AIzaSyAB6_zqp4uJCjtiMOflBDIlZkASotSjXVg',
-  authDomain: 'netflix-75751.firebaseapp.com',
-  projectId: 'netflix-75751'
+  apiKey: firebaseConfig.REACT_APP_APIKEY,
+  authDomain: firebaseConfig.REACT_APP_AUTHDOMAIN,
+  projectId: firebaseConfig.REACT_APP_PROJECTID
 })
 
 export const db = firebase.firestore()

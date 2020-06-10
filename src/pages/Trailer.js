@@ -84,7 +84,8 @@ const Trailer = ({ movieId }) => {
   }
 
   const { user, setUser } = useContext(UserContext)
-  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${Keys.apiKeyYoutube}&q=${titleOf}%20trailer`
+  const test = Keys.REACT_APP_APIKEYYOUTUBE
+  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${test}&q=${titleOf}%20trailer`
 
   useEffect(() => {
     fetch(urlYoutube)

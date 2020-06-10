@@ -15,7 +15,8 @@ import AccountBoxOutlinedIcon from '@material-ui/icons/AccountBoxOutlined'
 
 const useStyles = makeStyles((theme) => ({
   containerNav: {
-    backgroundColor: 'rgb(20, 20, 20)'
+    backgroundColor: 'rgb(20, 20, 20)',
+    boxShadow: '1px 1px 1px  1px black;'
   },
   appbar: {
     margin: theme.spacing(2)
@@ -98,6 +99,9 @@ const RoutingWrapper = () => {
     <AppBar position='static' className={classes.containerNav}>
       <Toolbar>
         <div className={classes.navLeft}>
+          <NavLink exact to='/' activeStyle={{ color: 'white' }} className={classes.link}>
+            Home
+          </NavLink>
           <NavLink
             exact
             to='/Movies'
@@ -114,9 +118,7 @@ const RoutingWrapper = () => {
           >
             TV shows
           </NavLink>
-          <NavLink exact to='/' activeStyle={{ color: 'white' }} className={classes.link}>
-            My list
-          </NavLink>
+
           <NavLink
             exact
             onClick={onClickLogin}
