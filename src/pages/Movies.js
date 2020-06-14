@@ -2,8 +2,19 @@ import React, { useContext, useEffect } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
 import { UserContext } from '../components/UserContext'
 import { fetchMovies } from '../handlers/ApiHandlers'
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+
+const useStyles = makeStyles((theme) => ({
+  searchBar: {
+    left: '0',
+    right: '0',
+    position: 'absolute'
+  }
+}))
 
 const Movies = () => {
+  const classes = useStyles()
   const { movies, setMovies } = useContext(UserContext)
 
   useEffect(() => {
@@ -19,7 +30,9 @@ const Movies = () => {
 
   return (
     <div>
+
       <MediaDisplayer media={movies} />
+
     </div>
   )
 }

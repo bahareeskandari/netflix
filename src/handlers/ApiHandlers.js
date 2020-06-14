@@ -14,7 +14,8 @@ export const fetchMovies = async () => {
       original_title: movie.original_title,
       poster_path: movie.poster_path,
       id: movie.id,
-      overview: movie.overview
+      overview: movie.overview,
+      valueOf: false
     }
   })
 
@@ -23,7 +24,8 @@ export const fetchMovies = async () => {
       original_title: movie.original_title,
       poster_path: movie.poster_path,
       id: movie.id,
-      overview: movie.overview
+      overview: movie.overview,
+      valueOf: false
     }
   })
   return { topRated, popular }

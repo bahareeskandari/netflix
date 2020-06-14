@@ -1,10 +1,9 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import firebase from 'firebase'
 import { NavLink } from 'react-router-dom'
 import { UserContext } from './UserContext'
 import { provider } from '../Firebase/FirebaseContext'
 
-import SearchBar from './SearchBar'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles } from '@material-ui/core/styles'
@@ -54,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
 
 const RoutingWrapper = () => {
   const classes = useStyles()
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const { user, setUser } = useContext(UserContext)
+  const [anchorEl, setAnchorEl] = useState(null)
+  const [searchedMovie, setSearchedMovie] = React.useState(null)
+  const { user, setUser, movies, setMovies } = useContext(UserContext)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -101,7 +101,9 @@ const RoutingWrapper = () => {
         <div className={classes.navLeft}>
           <NavLink exact to='/' activeStyle={{ color: 'white' }} className={classes.link}>
             Home
+
           </NavLink>
+
           <NavLink
             exact
             to='/Movies'
@@ -131,7 +133,7 @@ const RoutingWrapper = () => {
         </div>
 
         <div className={classes.navRight}>
-          <SearchBar className={classes.searchBar} />
+
           <Button
             className={classes.link}
             aria-controls='simple-menu'
@@ -150,15 +152,14 @@ const RoutingWrapper = () => {
             <MenuItem onClick={handleClose}>
               <NavLink
                 exact
-                to='/Profile'
+                to='/MyList'
                 activeStyle={{ color: 'white' }}
                 className={classes.dropwDownLink}
               >
-                Profile
+                My list
               </NavLink>
             </MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={onClickLogin}> {user ? 'Logout' : 'Login'}</MenuItem>
           </Menu>
         </div>
       </Toolbar>

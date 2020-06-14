@@ -6,15 +6,6 @@ export const createGlobalStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: 'white'
   },
-  searchBar: {
-    color: '#fff'
-  },
-  searchIcon: {
-    color: '#fff'
-  },
-  searchInput: {
-    textEmphasisColor: '#fff' // NOT WORKING WHY
-  },
   footer: {
     padding: '50px',
     margin: '50px',

@@ -1,16 +1,27 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../components/UserContext'
+import { Link } from 'react-router-dom'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
+import Collapse from '@material-ui/core/Collapse'
 import FilledInput from '@material-ui/core/FilledInput'
 import InputLabel from '@material-ui/core/InputLabel'
+import Input from '@material-ui/core/Input'
 import CardMedia from '@material-ui/core/CardMedia'
+import Youtube from '../components/Youtube'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardActions from '@material-ui/core/CardActions'
 import Typography from '@material-ui/core/Typography'
 import { red } from '@material-ui/core/colors'
 import YouTube from 'react-youtube'
-import YoutubeWrapper from '../components/YoutubeWrapper'
+import DeleteIcon from '@material-ui/icons/Delete'
+import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Container from '@material-ui/core/Container'
+import fetch from 'node-fetch'
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
@@ -22,6 +33,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const useStyles = makeStyles((theme) => ({
+  button: {
+    width: '10px',
+    padding: '1px'
+  },
+  youtube: {
+    fontSize: '20px'
+
+  },
+  li: {
+    fontSize: '22px',
+    listStyle: 'none'
+  },
   margin: {
     margin: theme.spacing(1)
   },
@@ -57,12 +80,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '10px'
   },
   addBtn: {
-    backgroundColor: 'gray',
-    width: '120px',
-    height: '30px',
     border: '0px solid transparent',
-    marginLeft: '5px',
+    marginLeft: '15px',
     borderRadius: '0.25px'
+  },
+  p: {
+    fontSize: '10px',
+    opacity: '0.5'
   }
 }))
 
@@ -70,13 +94,17 @@ const Trailer = ({ movieId }) => {
   const classes = useStyles()
   const { movies, tvShows } = useContext(UserContext)
   const [chosenTrailer, setChosenTrailer] = useState(movies[movieId])
-  const [titleOf, setTitleOf] = useState(chosenTrailer.original_title)
+  const [titleOf, setTitleOf] = useState(movies[movieId] ? chosenTrailer.original_title : null)
   const [urlSearch, setUrlSearch] = useState('')
-
   const [inputComment, setInputComment] = useState('')
   const [commentsArray, setCommentsArray] = useState([])
   const [chosenCommentIndex, setchosenCommentIndex] = useState(null)
   const [editCommentValue, setEditCommentValue] = useState(null)
+  const [expanded, setExpanded] = React.useState(false)
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded)
+  }
 
   const opts = {
     height: '394',
@@ -84,18 +112,27 @@ const Trailer = ({ movieId }) => {
   }
 
   const { user, setUser } = useContext(UserContext)
-  const test = Keys.REACT_APP_APIKEYYOUTUBE
-  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${test}&q=${titleOf}%20trailer`
+  const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
 
-  useEffect(() => {
+  const fetchYoutube = () => {
     fetch(urlYoutube)
       .then((res) => res.json())
       .then((r) => setUrlSearch(r.items[0].id.videoId))
+  }
+
+  useEffect(() => {
+    fetchYoutube()
   }, [])
 
   const handleAddComment = (comment) => {
-    setCommentsArray([...commentsArray, comment])
-    setInputComment('')
+    if (user) {
+      if (inputComment) {
+        setCommentsArray([...commentsArray, comment])
+        setInputComment('')
+      }
+    } else {
+      alert('You need to login first')
+    }
   }
   const handleAddEditedComment = (comment) => {
     const newCommentsArray = [...commentsArray]
@@ -104,7 +141,7 @@ const Trailer = ({ movieId }) => {
     setchosenCommentIndex(null)
   }
   const handleDeleteComment = (idx) => {
-    // setCommentsArray([commentsArray.filter(comme)])
+    setCommentsArray(commentsArray.filter((comment, index) => index !== idx))
   }
 
   return (
@@ -112,56 +149,100 @@ const Trailer = ({ movieId }) => {
       {chosenTrailer ? (
         <Card>
           <CardContent>
+            <YouTube videoId={urlSearch} opts={opts} />
+          </CardContent>
+
+          <CardActions>
             <CardContent>
-              <YouTube videoId={urlSearch} opts={opts} />
+              {' '}
+              <Typography variant='body2' color='textSecondary' component='p'>
+                {chosenTrailer.overview}
+              </Typography>
+              <br />
+              <br />
+              <InputLabel htmlFor='standard-adornment-password'>Add Your comment</InputLabel>
+              <FilledInput
+                id='component-filled'
+                value={inputComment}
+                onChange={(e) => setInputComment(e.target.value)}
+              />
+              <Button
+                variant='outlined'
+                className={classes.addBtn}
+                color='primary'
+                onClick={() => handleAddComment(inputComment)}
+              >
+                Add
+              </Button>
             </CardContent>
-            <Typography variant='body2' color='textSecondary' component='p'>
-              {chosenTrailer.overview}
+            <Typography variant='h6' className={classes.youtube} component='h6'>
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded
+                })}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label='show more'
+              >
+                <ExpandMoreIcon />
+              </IconButton>
             </Typography>
 
-            <InputLabel htmlFor='filled-adornment-amount'>Add Your comment</InputLabel>
-            <input
+          </CardActions>
 
-              value={inputComment}
-              onChange={(e) => setInputComment(e.target.value)}
-            />
-          </CardContent>
-          <button onClick={() => handleAddComment(inputComment)}>add</button>
-          <CardContent>
-            {commentsArray.map((comment, index) =>
-              chosenCommentIndex === index ? (
-                <>
-                  <input
-                    id='fieke' value={editCommentValue}
-                    onChange={(e) => setEditCommentValue(e.target.value)}
-                  />
-                  <button onClick={() => {
-                    handleAddEditedComment(editCommentValue)
-                  }}
-                  >add
-                  </button>
-                </>
-              ) : (
-                <div>
-                  <li
-                    key={index} onDoubleClick={() => {
-                      setEditCommentValue(commentsArray[index])
-                      setchosenCommentIndex(index)
-                    }}
-                  >
-                    {comment}
-                  </li>
-                  <button onClick={() => {
-                    handleDeleteComment(index)
-                  }}
-                  >x
-                  </button>
-                </div>
-              )
-            )}
-          </CardContent>
+          <Collapse in={expanded} timeout='auto' unmountOnExit>
+            <CardContent>
+              {commentsArray.map((comment, index) =>
+                chosenCommentIndex === index ? (
+                  <>
+                    <FilledInput
+                      id='component-filled'
+                      value={editCommentValue}
+                      onChange={(e) => setEditCommentValue(e.target.value)}
+                    />
+                    <Button
+                      variant='outlined'
+                      color='primary'
+                      onClick={() => {
+                        handleAddEditedComment(editCommentValue)
+                      }}
+                    >
+                      Add
+                    </Button>
+                  </>
+                ) : (
+                  <div>
+                    <li className={classes.li} key={index}>
+                      <p className={classes.p}>{user ? user.displayName : null}</p>
+                      {comment}
+                      <IconButton
+                        aria-label='delete'
+                        onClick={() => {
+                          handleDeleteComment(index)
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                      <Button
+                        onClick={() => {
+                          setEditCommentValue(commentsArray[index])
+                          setchosenCommentIndex(index)
+                        }}
+                        className={classes.button}
+                        variant='contained'
+                      >
+                        Edit
+                      </Button>
+                      <br />
+                      <br />
+                    </li>
+                  </div>
+                )
+              )}
+            </CardContent>
+          </Collapse>
         </Card>
-      ) : null}
+      ) : (<Youtube />)}
     </div>
   )
 }

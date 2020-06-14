@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
-// todo: ta bort om denna inte behövs
 import './App.css'
-import Profile from './pages/Profile'
 import MyList from './pages/MyList'
+import Home from './pages/Home'
 import TVShows from './pages/TVShows'
 import Footer from './Footer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
@@ -13,6 +12,10 @@ import { FirebaseProvider } from './Firebase/FirebaseContext'
 import Trailer from './pages/Trailer'
 import { makeStyles } from '@material-ui/core/styles'
 import Appbar from './components/Appbar'
+import promise from 'es6-promise'
+import 'isomorphic-fetch'
+
+promise.polyfill()
 
 const useStyles = makeStyles((theme) => ({
   containerNav: {
@@ -64,10 +67,10 @@ const App = () => {
             <FirebaseProvider>
               <Appbar />
               <Switch>
-                <Route path='/' exact component={MyList} />
+                <Route path='/' exact component={Home} />
                 <Route path='/Movies' exact component={Movies} />
                 <Route path='/TVShows' exact component={TVShows} />
-                <Route path='/Profile' exact component={Profile} />
+                <Route path='/MyList' exact component={MyList} />
                 <Route
                   path='/Movies/:proId'
                   render={({ match }) => {

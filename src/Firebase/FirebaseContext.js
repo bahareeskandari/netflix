@@ -2,22 +2,21 @@ import React, { createContext, useContext } from 'react'
 import firebase from 'firebase'
 import 'firebase/firestore'
 import { UserContext } from '../components/UserContext'
-let firebaseConfig
+let Keys
 if (process.env.NODE_ENV === 'production') {
-  firebaseConfig = {
+  Keys = {
     REACT_APP_APIKEY: process.env.REACT_APP_APIKEY,
     REACT_APP_AUTHDOMAIN: process.env.REACT_APP_AUTHDOMAIN,
     REACT_APP_PROJECTID: process.env.REACT_APP_PROJECTID
   }
 } else {
-  firebaseConfig = require('../Keys.json')
-  console.log(firebaseConfig)
+  Keys = require('../Keys.json')
 }
 
 firebase.initializeApp({
-  apiKey: firebaseConfig.REACT_APP_APIKEY,
-  authDomain: firebaseConfig.REACT_APP_AUTHDOMAIN,
-  projectId: firebaseConfig.REACT_APP_PROJECTID
+  apiKey: Keys.REACT_APP_APIKEY,
+  authDomain: Keys.REACT_APP_AUTHDOMAIN,
+  projectId: Keys.REACT_APP_PROJECTID
 })
 
 export const db = firebase.firestore()
