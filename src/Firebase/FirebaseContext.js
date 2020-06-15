@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production') {
     REACT_APP_APIKEY: process.env.REACT_APP_APIKEY,
     REACT_APP_AUTHDOMAIN: process.env.REACT_APP_AUTHDOMAIN,
     REACT_APP_PROJECTID: process.env.REACT_APP_PROJECTID
+
   }
 } else {
   Keys = require('../Keys.json')

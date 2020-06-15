@@ -21,7 +21,6 @@ import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Container from '@material-ui/core/Container'
-import fetch from 'node-fetch'
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
@@ -114,14 +113,24 @@ const Trailer = ({ movieId }) => {
   const { user, setUser } = useContext(UserContext)
   const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
 
-  const fetchYoutube = () => {
-    fetch(urlYoutube)
-      .then((res) => res.json())
-      .then((r) => setUrlSearch(r.items[0].id.videoId))
-  }
+  // const fetchYoutube = () => {
+  //   fetch(urlYoutube)
+  //     .then((res) => res.json())
+  //     .then((r) => setUrlSearch(r.items[0].id.videoId))
+  // }
 
   useEffect(() => {
-    fetchYoutube()
+    console.log('test', urlYoutube)
+    fetch(urlYoutube, {
+      headers: {
+        'Content-Type': 'application/json'
+
+      }
+    }).then(r => r.json())
+      .then((r) => {
+        setUrlSearch(r.items[0].id.videoId)
+        console.log('rr', r)
+      }).catch(error => console.log(error))
   }, [])
 
   const handleAddComment = (comment) => {
@@ -143,7 +152,10 @@ const Trailer = ({ movieId }) => {
   const handleDeleteComment = (idx) => {
     setCommentsArray(commentsArray.filter((comment, index) => index !== idx))
   }
-
+  if (!titleOf) {
+    return <p>not found</p>
+  }
+  console.log('url', urlSearch)
   return (
     <div className={classes.root}>
       {chosenTrailer ? (

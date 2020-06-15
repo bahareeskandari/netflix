@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid'
 
 // API Key: 45c558de41ced2373b930108825d0ef8
 
-export default function MediaDisplayer ({ media }) {
+export default function MediaDisplayer ({ media = {} }) {
   const [openModal, setOpenModal] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState(undefined)
 

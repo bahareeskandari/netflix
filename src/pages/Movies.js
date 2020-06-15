@@ -19,13 +19,14 @@ const Movies = () => {
   const classes = useStyles()
   const { movies, setMovies } = useContext(UserContext)
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     setLoading(true)
     async function getMovies () {
-      const { topRated, popular } = await fetchMovies()
-      await setMovies(topRated.concat(popular))
-      fetchMovies()
+      const { topRated } = await fetchMovies()
+      await setMovies(topRated)
+      fetchMovies(page)
       setLoading(false)
     }
     getMovies()
