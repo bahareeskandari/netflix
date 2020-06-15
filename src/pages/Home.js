@@ -47,7 +47,7 @@ const Home = () => {
 
   return (
     <Container maxWidth='lg'>
-      <Grid container direction='row' justify='flex-center' alignItems='center' spacing={3}>
+      <Grid container direction='row' alignItems='center' spacing={3}>
         <Grid item xs={12} />
 
         <Card className={classes.root} variant='outlined'>

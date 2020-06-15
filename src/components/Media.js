@@ -92,7 +92,7 @@ const Media = ({ product, handleOpen, idx }) => {
           title='Contemplative Reptile'
           onClick={() => handleOpen(product)}
         />
-        <Typography variant='p' component='p' className={classes.p}>
+        <Typography className={classes.p}>
           {product.original_title}
         </Typography>
         <CardActions className={classes.links}>

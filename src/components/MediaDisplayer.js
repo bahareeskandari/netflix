@@ -1,4 +1,3 @@
-// @flow
 import React, { useState } from 'react'
 import MediaList from './MediaList'
 import Container from '@material-ui/core/Container'
@@ -25,7 +24,7 @@ export default function MediaDisplayer ({ media }) {
   return (
 
     <Container maxWidth='lg'>
-      <Grid container direction='row' justify='flex-end' alignItems='center' spacing={3}>
+      <Grid container direction='row' justify='center' alignItems='center' spacing={3}>
         <Grid item xs={12}>
           <Popup openModal={openModal} movie={selectedMovie} handleClose={handleClose} />
           <MediaList

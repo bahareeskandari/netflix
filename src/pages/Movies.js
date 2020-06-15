@@ -1,9 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
 import { UserContext } from '../components/UserContext'
 import { fetchMovies } from '../handlers/ApiHandlers'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -16,23 +18,30 @@ const useStyles = makeStyles((theme) => ({
 const Movies = () => {
   const classes = useStyles()
   const { movies, setMovies } = useContext(UserContext)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // todo: hade varit finare om fetchMovies var i en handlers/apiHander.js. Svar: försökte men setMovies som kallas inuti skopen kommer ej att vara definerat i den andra filen
-
+    setLoading(true)
     async function getMovies () {
       const { topRated, popular } = await fetchMovies()
       await setMovies(topRated.concat(popular))
       fetchMovies()
+      setLoading(false)
     }
     getMovies()
   }, [])
 
   return (
     <div>
-
-      <MediaDisplayer media={movies} />
-
+      {loading ? (
+        <Container maxWidth='lg'>
+          <Grid container direction='column' justify='center' alignItems='center' spacing={3}>
+            <CircularProgress disableShrink />
+          </Grid>
+        </Container>
+      ) : (
+        <MediaDisplayer media={movies} />
+      )}
     </div>
   )
 }
