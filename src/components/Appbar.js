@@ -3,7 +3,8 @@ import firebase from 'firebase'
 import { NavLink } from 'react-router-dom'
 import { UserContext } from './UserContext'
 import { provider } from '../Firebase/FirebaseContext'
-
+import IconButton from '@material-ui/core/IconButton'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import { makeStyles } from '@material-ui/core/styles'
@@ -20,13 +21,24 @@ const useStyles = makeStyles((theme) => ({
   appbar: {
     margin: theme.spacing(2)
   },
-
+  heart: {
+    color: '#e9e9e9',
+    fontFamily: "'Netflix Sans', 'Helvetica Neue',´ Helvetica, Arial, sans-serif",
+    fontWeight: 'normal',
+    fontSize: 14,
+    '&:hover': {
+      color: 'gray'
+    }
+  },
   link: {
     color: '#e9e9e9',
     margin: theme.spacing(2),
     textDecorationLine: 'none',
     fontFamily: "'Netflix Sans', 'Helvetica Neue',´ Helvetica, Arial, sans-serif",
-    fontWeight: 'normal'
+    fontWeight: 'normal',
+    '&:hover': {
+      color: 'gray'
+    }
   },
   searchBar: {
     color: '#e9e9e9',
@@ -38,7 +50,10 @@ const useStyles = makeStyles((theme) => ({
   dropwDownLink: {
     color: 'black',
     textDecorationLine: 'none',
-    fontWeight: 'normal'
+    fontWeight: 'normal',
+    '&:hover': {
+      color: 'gray'
+    }
   },
   navRight: {
     margin: theme.spacing(2),
@@ -55,7 +70,7 @@ const RoutingWrapper = () => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const [searchedMovie, setSearchedMovie] = React.useState(null)
-  const { user, setUser, movies, setMovies } = useContext(UserContext)
+  const { user, setUser, myList } = useContext(UserContext)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -118,9 +133,8 @@ const RoutingWrapper = () => {
             activeStyle={{ color: 'white' }}
             className={classes.link}
           >
-            TV shows
+            Tv shows
           </NavLink>
-
           <NavLink
             exact
             onClick={onClickLogin}
@@ -142,6 +156,17 @@ const RoutingWrapper = () => {
           >
             <AccountBoxOutlinedIcon />
           </Button>
+          <NavLink
+            exact
+            to='/MyList'
+            activeStyle={{ color: 'white' }}
+            className={classes.dropwDownLink}
+          >
+
+            <IconButton aria-label='add to favorites' className={classes.heart}>
+              <FavoriteIcon />  {myList.length}
+            </IconButton>
+          </NavLink>
           <Menu
             id='simple-menu'
             anchorEl={anchorEl}
@@ -161,6 +186,7 @@ const RoutingWrapper = () => {
             </MenuItem>
             <MenuItem onClick={onClickLogin}> {user ? 'Logout' : 'Login'}</MenuItem>
           </Menu>
+
         </div>
       </Toolbar>
     </AppBar>

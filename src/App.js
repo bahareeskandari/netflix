@@ -70,6 +70,12 @@ const App = () => {
                 <Route path='/' exact component={Home} />
                 <Route path='/Movies' exact component={Movies} />
                 <Route path='/TVShows' exact component={TVShows} />
+                <Route
+                  path='/TVShows/:proId'
+                  render={({ match }) => {
+                    return <TVShows movieId={match.params.proId} />
+                  }}
+                />
                 <Route path='/MyList' exact component={MyList} />
                 <Route
                   path='/Movies/:proId'

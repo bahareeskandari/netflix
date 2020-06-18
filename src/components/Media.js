@@ -64,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Media = ({ product, handleOpen, idx }) => {
   const classes = useStyles()
+  const [expanded, setExpanded] = React.useState(false)
   const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
   const { movies, setMovies, setMyList } = useContext(UserContext)
 
@@ -73,7 +74,6 @@ const Media = ({ product, handleOpen, idx }) => {
     setMovies(copyMovies)
     setMyList(movies.filter(movie => movie.valueOf))
   }
-  const [expanded, setExpanded] = React.useState(false)
 
   const handleExpandClick = () => {
     setExpanded(!expanded)
@@ -96,7 +96,7 @@ const Media = ({ product, handleOpen, idx }) => {
           {product.original_title}
         </Typography>
         <CardActions className={classes.links}>
-          <Link className={classes.youtube} to={`/Movies/${idx}`}>Trailer<i className='fab fa-youtube' /></Link>
+          <Link className={classes.youtube} to={`/Movies/${product.id}`}>Trailer<i className='fab fa-youtube' /></Link>
           <Typography className={classes.heart} variant='h6' component='h6' onClick={() => AddToMyList(idx)}>
             {product.valueOf ? (<i className='fas fa-heart' />) : (<i className='far fa-heart' />)}
 

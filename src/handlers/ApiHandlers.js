@@ -23,7 +23,6 @@ export const fetchMovies = async (page) => {
   })
 
   const topRatedTv = await topRatedTvShowsData.results.map((show) => {
-    console.log('ttt', show)
     return {
       original_title: show.original_name,
       poster_path: show.poster_path,

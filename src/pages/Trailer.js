@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     width: '25ch'
   },
   root: {
-    maxWidth: 1000,
+    maxWidth: 520,
     backgroundColor: 'white'
   },
   media: {
@@ -92,8 +92,9 @@ const useStyles = makeStyles((theme) => ({
 const Trailer = ({ movieId }) => {
   const classes = useStyles()
   const { movies, tvShows } = useContext(UserContext)
-  const [chosenTrailer, setChosenTrailer] = useState(movies[movieId])
-  const [titleOf, setTitleOf] = useState(movies[movieId] ? chosenTrailer.original_title : null)
+  const together = movies.concat(tvShows)
+  const [chosenTrailer, setChosenTrailer] = useState(together.find(movi => movi.id == movieId))
+  const [titleOf, setTitleOf] = useState(chosenTrailer ? (chosenTrailer.original_title).replace(/\s/g, '%20') : (<Youtube />)) // replace white space with %20 for yuotube
   const [urlSearch, setUrlSearch] = useState('')
   const [inputComment, setInputComment] = useState('')
   const [commentsArray, setCommentsArray] = useState([])
@@ -107,7 +108,7 @@ const Trailer = ({ movieId }) => {
 
   const opts = {
     height: '394',
-    width: '1000'
+    width: '500'
   }
 
   const { user, setUser } = useContext(UserContext)
@@ -120,7 +121,6 @@ const Trailer = ({ movieId }) => {
   // }
 
   useEffect(() => {
-    console.log('test', urlYoutube)
     fetch(urlYoutube, {
       headers: {
         'Content-Type': 'application/json'
@@ -129,7 +129,6 @@ const Trailer = ({ movieId }) => {
     }).then(r => r.json())
       .then((r) => {
         setUrlSearch(r.items[0].id.videoId)
-        console.log('rr', r)
       }).catch(error => console.log(error))
   }, [])
 
@@ -155,7 +154,6 @@ const Trailer = ({ movieId }) => {
   if (!titleOf) {
     return <p>not found</p>
   }
-  console.log('url', urlSearch)
   return (
     <div className={classes.root}>
       {chosenTrailer ? (
