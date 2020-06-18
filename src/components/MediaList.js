@@ -51,7 +51,7 @@ const MovieList = ({ entertainments, handleOpen }) => {
         />
 
         <Grid container item xs={12} spacing={3}>
-
+          {console.log(entertainments)}
           {entertainments.map((product, idx) => {
             if (input.length !== 0) {
               if (product.original_title.toLowerCase().startsWith(input.toLowerCase())) {

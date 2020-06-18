@@ -1,47 +1,47 @@
-import React, { useContext, useEffect } from 'react'
-import { popularTvsShows, topRatedTvShows } from '../Util/Constants'
+import React, { useContext, useEffect, useState } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
 import { UserContext } from '../components/UserContext'
-require('es6-promise').polyfill()
-require('isomorphic-fetch')
+import { fetchMovies } from '../handlers/ApiHandlers'
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
+const useStyles = makeStyles((theme) => ({
+  searchBar: {
+    left: '0',
+    right: '0',
+    position: 'absolute'
+  }
+}))
 
 const TVShows = () => {
-  // const { tvShows, setTvShows } = useContext(UserContext)
+  const classes = useStyles()
+  const { tvShows, setTvShows, loading, setLoading } = useContext(UserContext)
+  const [page, setPage] = useState(1)
 
-  // useEffect(() => {
-  //   const fetchTvShows = async () => {
-  //     const popularTvShows = await fetch(popularTvsShows)
-  //     const topRatedTVSHows = await fetch(topRatedTvShows)
+  useEffect(() => {
+    setLoading(true)
+    async function getTVShows () {
+      const { topRatedTv } = await fetchMovies()
+      await setTvShows(topRatedTv)
+      fetchMovies(page)
+      setLoading(false)
+    }
+    getTVShows()
+  }, [])
 
-  //     const popularTvSHowsData = await popularTvShows.json()
-  //     const topRatedTvShowsData = await topRatedTVSHows.json()
-
-  //     const popular = await popularTvSHowsData.results.map((tvShow) => {
-  //       return {
-  //         original_title: tvShow.original_title,
-  //         poster_path: tvShow.poster_path,
-  //         id: tvShow.id,
-  //         overview: tvShow.overview
-  //       }
-  //     })
-
-  //     const topRated = await topRatedTvShowsData.results.map((tvShow) => {
-  //       return {
-  //         original_title: tvShow.original_title,
-  //         poster_path: tvShow.poster_path,
-  //         id: tvShow.id,
-  //         overview: tvShow.overview
-  //       }
-  //     })
-
-  //     await setTvShows(topRated.concat(popular))
-  //   }
-  //   fetchTvShows()
-  // }, [])
   return (
     <div>
-      {' '}
-      {/* <MediaDisplayer media={tvShows} /> */}
+      {loading ? (
+        <Container maxWidth='lg'>
+          <Grid container direction='column' justify='center' alignItems='center' spacing={3}>
+            <CircularProgress disableShrink />
+          </Grid>
+        </Container>
+      ) : (
+        <MediaDisplayer media={tvShows} />
+      )}
     </div>
   )
 }

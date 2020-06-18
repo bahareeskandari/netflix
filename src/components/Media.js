@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
 import { Link } from 'react-router-dom'
@@ -14,12 +13,8 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     maxWidth: 245,
-    height: 420,
-    transition: 'all 0.325s',
-    '&:hover': {
-      maxWidth: 445,
-      transition: 'all 0.325s'
-    }
+    margin: 30,
+    height: 420
   },
   paper: {
     padding: theme.spacing(1),
@@ -78,10 +73,15 @@ const Media = ({ product, handleOpen, idx }) => {
     setMovies(copyMovies)
     setMyList(movies.filter(movie => movie.valueOf))
   }
+  const [expanded, setExpanded] = React.useState(false)
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded)
+  }
 
   return (
 
-    <Grid item xs={3} className={classes.container}>
+    <div>
       <Card className={classes.root}>
         <CardMedia
           className={classes.img}
@@ -106,7 +106,7 @@ const Media = ({ product, handleOpen, idx }) => {
         <CardActions className={classes.links} />
 
       </Card>
-    </Grid>
+    </div>
 
   )
 }

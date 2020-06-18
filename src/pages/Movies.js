@@ -17,8 +17,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Movies = () => {
   const classes = useStyles()
-  const { movies, setMovies } = useContext(UserContext)
-  const [loading, setLoading] = useState(false)
+  const { movies, setMovies, loading, setLoading } = useContext(UserContext)
   const [page, setPage] = useState(1)
 
   useEffect(() => {

@@ -1,4 +1,5 @@
-import { getTopMoviesUrl } from '../Util/Constants'
+import { getTopMoviesUrl, getTopRatedTvShowsUrl } from '../Util/Constants'
+// import InfiniteScroll from 'react-infinite-scroll-component'
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
@@ -6,6 +7,10 @@ export const fetchMovies = async (page) => {
   const topRatedMoviesUrl = getTopMoviesUrl(page)
   const topRatedMovies = await fetch(topRatedMoviesUrl)
   const topRatedMoviesData = await topRatedMovies.json()
+
+  const topRatedTvShowsUrl = getTopRatedTvShowsUrl(page)
+  const topRatedTvShows = await fetch(topRatedTvShowsUrl)
+  const topRatedTvShowsData = await topRatedTvShows.json()
 
   const topRated = await topRatedMoviesData.results.map((movie) => {
     return {
@@ -16,5 +21,17 @@ export const fetchMovies = async (page) => {
       valueOf: false
     }
   })
-  return { topRated }
+
+  const topRatedTv = await topRatedTvShowsData.results.map((show) => {
+    console.log('ttt', show)
+    return {
+      original_title: show.original_name,
+      poster_path: show.poster_path,
+      id: show.id,
+      overview: show.overview,
+      valueOf: false
+    }
+  })
+
+  return { topRated, topRatedTv }
 }
