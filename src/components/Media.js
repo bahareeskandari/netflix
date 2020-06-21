@@ -71,7 +71,8 @@ const Media = ({ product, handleOpen, idx }) => {
   const AddToMyList = (product) => {
     const copyMovies = [...movies]
     copyMovies[product].valueOf = !copyMovies[product].valueOf
-    setMovies(copyMovies)
+    setMovies([...copyMovies])
+    console.log(movies)
     setMyList(movies.filter(movie => movie.valueOf))
   }
 

@@ -35,6 +35,7 @@ const useStyles = makeStyles({
   },
   links: {
     textDecoration: 'none',
+    fontSize: '14px',
     '&:hover': {
       color: 'gray'
     }
@@ -79,19 +80,31 @@ const Home = () => {
                 <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-twitter' /></a>
               </Typography>
             </Typography>
+            <CardActions>
+              <Button variant='outlined'>CV</Button>
+            </CardActions>
           </CardContent>
           <CardContent>
-
-            <Typography className={classes.links} variant='h6'>
-              <a className={classes.links} href='https://github.com/bahareeskandari/Ravenous-Using-Hooks'> Ravenous </a>
+            <Typography variant='h6'>
+              See my projects on github
             </Typography>
             <Typography className={classes.links} variant='h6'>
-              <a className={classes.links} href='https://github.com/bahareeskandari/calculator'> Calculator </a>
+              <a className={classes.links} href='https://github.com/bahareeskandari/Ravenous-Using-Hooks'> Ravenous-app </a>
+            </Typography>
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/calculator'> Calculator-app </a>
+            </Typography>
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/Jammming-react-hooks'> Music-app </a>
+            </Typography>
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/Fancy-todo-app'> Todo-app </a>
+            </Typography>
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/Queue-app'> Queue-app </a>
             </Typography>
           </CardContent>
-          <CardActions>
-            <Button variant='outlined'>CV</Button>
-          </CardActions>
+
         </Card>
       </Container>
     </Container>
