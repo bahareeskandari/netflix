@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import MediaDisplayer from '../components/MediaDisplayer'
 import { UserContext } from '../components/UserContext'
-import { fetchMovies } from '../handlers/ApiHandlers'
+import { fetchTVshows } from '../handlers/ApiHandlers'
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
@@ -23,9 +23,9 @@ const TVShows = () => {
   useEffect(() => {
     setLoading(true)
     async function getTVShows () {
-      const { topRatedTv } = await fetchMovies()
+      const { topRatedTv } = await fetchTVshows()
       await setTvShows(topRatedTv)
-      fetchMovies(page)
+      fetchTVshows(page)
       setLoading(false)
     }
     getTVShows()

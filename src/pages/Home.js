@@ -29,9 +29,15 @@ const useStyles = makeStyles({
     fontSize: '45px'
   },
   icons: {
-    padding: 12,
+    padding: 15,
     display: 'inline-block',
     cursor: 'pointer'
+  },
+  links: {
+    textDecoration: 'none',
+    '&:hover': {
+      color: 'gray'
+    }
   },
   iconsContainer: {
     marginTop: '100px',
@@ -57,23 +63,31 @@ const Home = () => {
             <Typography variant='h5' className={classes.pos} component='h2'>
               Hi, I'm Bahare Eskandari
             </Typography>
+
             <Typography className={classes.title} color='textSecondary' gutterBottom>
+
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <a href='linkedin.com/in/bahare-eskandari-50b033195'> <i className='fab fa-linkedin' /></a>
+                <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-linkedin' /></a>
               </Typography>
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <i className='fab fa-facebook-f' />
+                <a href='https://www.facebook.com/bahare.eskandari.9/'><i className='fab fa-facebook-f' /></a>
               </Typography>
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <i className='fab fa-github' />
+                <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-github' /></a>
               </Typography>
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <i className='fab fa-twitter' />
+                <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-twitter' /></a>
               </Typography>
             </Typography>
           </CardContent>
-          <CardContent>TEST
-            {/* {user ? <img src={user.photoURL} alt='profilepics' /> : null} */}
+          <CardContent>
+
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/Ravenous-Using-Hooks'> Ravenous </a>
+            </Typography>
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/calculator'> Calculator </a>
+            </Typography>
           </CardContent>
           <CardActions>
             <Button variant='outlined'>CV</Button>

@@ -8,10 +8,6 @@ export const fetchMovies = async (page) => {
   const topRatedMovies = await fetch(topRatedMoviesUrl)
   const topRatedMoviesData = await topRatedMovies.json()
 
-  const topRatedTvShowsUrl = getTopRatedTvShowsUrl(page)
-  const topRatedTvShows = await fetch(topRatedTvShowsUrl)
-  const topRatedTvShowsData = await topRatedTvShows.json()
-
   const topRated = await topRatedMoviesData.results.map((movie) => {
     return {
       original_title: movie.original_title,
@@ -21,6 +17,14 @@ export const fetchMovies = async (page) => {
       valueOf: false
     }
   })
+
+  return { topRated }
+}
+
+export const fetchTVshows = async (page) => {
+  const topRatedTvShowsUrl = getTopRatedTvShowsUrl(page)
+  const topRatedTvShows = await fetch(topRatedTvShowsUrl)
+  const topRatedTvShowsData = await topRatedTvShows.json()
 
   const topRatedTv = await topRatedTvShowsData.results.map((show) => {
     return {
@@ -32,5 +36,5 @@ export const fetchMovies = async (page) => {
     }
   })
 
-  return { topRated, topRatedTv }
+  return { topRatedTv }
 }
