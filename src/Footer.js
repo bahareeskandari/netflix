@@ -9,14 +9,8 @@ const Footer = () => {
     <div className={classesGlobal.footer}>
       <Container maxWidth='xl'>
         <footer>
-          <Typography variant='h6' align='center' gutterBottom>
-            Footer FOOTER
-          </Typography>
-          <Typography variant='subtitle1' align='center' component='p'>
-            Something here to give the footer a purpose!
-          </Typography>
           <Typography variant='subtitle1' align='center'>
-            Copyright ©
+            ©Bahare Eskandari | 2020. All rights reserved.
           </Typography>
         </footer>
       </Container>

@@ -1,4 +1,6 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
+import { imageFirstPart } from '../Util/Constants'
+
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
@@ -65,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
 const Media = ({ product, handleOpen, idx }) => {
   const classes = useStyles()
   const [expanded, setExpanded] = React.useState(false)
-  const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
   const { movies, setMovies, setMyList } = useContext(UserContext)
 
   const AddToMyList = (product) => {
@@ -74,10 +75,6 @@ const Media = ({ product, handleOpen, idx }) => {
     setMovies([...copyMovies])
     console.log(movies)
     setMyList(movies.filter(movie => movie.valueOf))
-  }
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
   }
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import './App.css'
 import MyList from './pages/MyList'
 import Home from './pages/Home'
