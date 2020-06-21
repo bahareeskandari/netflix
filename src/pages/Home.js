@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { UserContext } from '../components/UserContext'
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
-
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Card from '@material-ui/core/Card'
@@ -58,14 +57,12 @@ const Home = () => {
         <Card className={classes.root} variant='outlined'>
           <CardContent>
             <Typography className={classes.title} color='textSecondary' gutterBottom>
-              Welcome!
+              Welcome
             </Typography>
             <Typography variant='h5' className={classes.pos} component='h2'>
               Hi, I'm Bahare Eskandari
             </Typography>
-
             <Typography className={classes.title} color='textSecondary' gutterBottom>
-
               <Typography className={classes.icons} variant='h5' component='h2'>
                 <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-linkedin' /></a>
               </Typography>
