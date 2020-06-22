@@ -16,6 +16,7 @@ import YouTube from 'react-youtube'
 import DeleteIcon from '@material-ui/icons/Delete'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
+import FirebaseContext from '../Firebase/FirebaseContext'
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
@@ -96,7 +97,7 @@ const Trailer = ({ movieId }) => {
   const [chosenCommentIndex, setchosenCommentIndex] = useState(null)
   const [editCommentValue, setEditCommentValue] = useState(null)
   const [expanded, setExpanded] = React.useState(false)
-
+  const db = useContext(FirebaseContext)
   const handleExpandClick = () => {
     setExpanded(!expanded)
   }
@@ -125,6 +126,7 @@ const Trailer = ({ movieId }) => {
       .then((r) => {
         setUrlSearch(r.items[0].id.videoId)
       }).catch(error => console.log(error))
+    getComments()
   }, [])
 
   const handleAddComment = (comment) => {
@@ -132,6 +134,8 @@ const Trailer = ({ movieId }) => {
       if (inputComment) {
         setCommentsArray([...commentsArray, comment])
         setInputComment('')
+        // add comment to firebase
+        setCommentToFirebase(comment)
       }
     } else {
       alert('You need to login first')
@@ -146,6 +150,39 @@ const Trailer = ({ movieId }) => {
   const handleDeleteComment = (idx) => {
     setCommentsArray(commentsArray.filter((comment, index) => index !== idx))
   }
+
+  const getComments = () => {
+    const commentsRef = db.collection('Comments')
+    const docRef = commentsRef.doc(movieId)
+
+    docRef.get().then(function (doc) {
+      if (doc.exists) {
+        const data = doc.data()
+        const emailsComments = Object.keys(data)
+        const commentsFromDb = emailsComments.map(email => {
+          return {
+            user: email,
+            comment: data[email]
+          }
+        })
+        setCommentsArray([...commentsArray, ...commentsFromDb])
+      } else {
+      // doc.data() will be undefined in this case
+        console.log('No such document!')
+      }
+    }).catch(function (error) {
+      console.log('Error getting document:', error)
+    })
+  }
+
+  const setCommentToFirebase = (comment) => {
+    const commentsRef = db.collection('Comments')
+    const docRef = commentsRef.doc(movieId)
+    docRef.set({
+      [user.email]: comment
+    }, { merge: true })
+  }
+
   if (!titleOf) {
     return <p>not found</p>
   }
@@ -218,8 +255,9 @@ const Trailer = ({ movieId }) => {
                 ) : (
                   <div>
                     <li className={classes.li} key={index}>
-                      <p className={classes.p}>{user ? user.displayName : null}</p>
-                      {comment}
+                      <p className={classes.p}>{comment.user || null}</p>
+                      {console.log(comment)}
+                      {comment.comment}
                       <IconButton
                         aria-label='delete'
                         onClick={() => {
