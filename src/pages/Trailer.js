@@ -15,6 +15,8 @@ import { red } from '@material-ui/core/colors'
 import YouTube from 'react-youtube'
 import DeleteIcon from '@material-ui/icons/Delete'
 import IconButton from '@material-ui/core/IconButton'
+import firebase from 'firebase'
+import 'firebase/firestore'
 import Button from '@material-ui/core/Button'
 import FirebaseContext from '../Firebase/FirebaseContext'
 require('es6-promise').polyfill()
@@ -92,6 +94,7 @@ const Trailer = ({ movieId }) => {
   const [chosenTrailer, setChosenTrailer] = useState(together.find(movi => movi.id == movieId))
   const [titleOf, setTitleOf] = useState(chosenTrailer ? (chosenTrailer.original_title).replace(/\s/g, '%20') : (<Youtube />)) // replace white space with %20 for yuotube
   const [urlSearch, setUrlSearch] = useState('')
+
   const [inputComment, setInputComment] = useState('')
   const [commentsArray, setCommentsArray] = useState([])
   const [chosenCommentIndex, setchosenCommentIndex] = useState(null)
@@ -110,12 +113,6 @@ const Trailer = ({ movieId }) => {
   const { user, setUser } = useContext(UserContext)
   const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
 
-  // const fetchYoutube = () => {
-  //   fetch(urlYoutube)
-  //     .then((res) => res.json())
-  //     .then((r) => setUrlSearch(r.items[0].id.videoId))
-  // }
-
   useEffect(() => {
     fetch(urlYoutube, {
       headers: {
@@ -132,10 +129,13 @@ const Trailer = ({ movieId }) => {
   const handleAddComment = (comment) => {
     if (user) {
       if (inputComment) {
-        setCommentsArray([...commentsArray, comment])
+        setCommentsArray([...commentsArray, {
+          [user.email]: comment
+        }])
         setInputComment('')
         // add comment to firebase
         setCommentToFirebase(comment)
+        getComments()
       }
     } else {
       alert('You need to login first')
@@ -143,12 +143,25 @@ const Trailer = ({ movieId }) => {
   }
   const handleAddEditedComment = (comment) => {
     const newCommentsArray = [...commentsArray]
-    newCommentsArray.splice(chosenCommentIndex, 1, comment)
+    deleteData()
+    newCommentsArray.splice(chosenCommentIndex, 1, {
+      [user.email]: comment
+    })
     setCommentsArray(newCommentsArray)
+    setCommentToFirebase(comment)
+    getComments()
     setchosenCommentIndex(null)
   }
   const handleDeleteComment = (idx) => {
     setCommentsArray(commentsArray.filter((comment, index) => index !== idx))
+  }
+
+  const deleteData = () => {
+    const docRef = db.collection('Comments').doc(movieId)
+    // Remove the 'capital' field from the document
+    docRef.update({
+      [user.email]: firebase.firestore.FieldValue.delete()
+    })
   }
 
   const getComments = () => {
@@ -268,7 +281,7 @@ const Trailer = ({ movieId }) => {
                       </IconButton>
                       <Button
                         onClick={() => {
-                          setEditCommentValue(commentsArray[index])
+                          setEditCommentValue(commentsArray[index].comment)
                           setchosenCommentIndex(index)
                         }}
                         className={classes.button}
