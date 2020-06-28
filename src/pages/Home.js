@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import imageProfile from '../components/profile.jpg'
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
     fontSize: 14
   },
   pos: {
-    fontSize: '45px'
+    fontSize: '25px'
   },
   icons: {
     padding: 15,
@@ -56,9 +57,6 @@ const Home = () => {
       <Container maxWidth='sm'>
         <Card className={classes.root} variant='outlined'>
           <CardContent>
-            <Typography className={classes.title} color='textSecondary' gutterBottom>
-              Welcome
-            </Typography>
             <Typography variant='h5' className={classes.pos} component='h2'>
               Hi, I'm Bahare Eskandari
             </Typography>
@@ -75,12 +73,15 @@ const Home = () => {
               <Typography className={classes.icons} variant='h5' component='h2'>
                 <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-twitter' /></a>
               </Typography>
+              <Typography className={classes.icons} variant='h5' component='h2'>
+                <Button variant='outlined'>CV</Button>
+              </Typography>
+
             </Typography>
-            <CardActions>
-              <Button variant='outlined'>CV</Button>
-            </CardActions>
-          </CardContent>
-          <CardContent>
+            <img src={imageProfile} alt='hh' style={{ width: '100px' }} />
+
+            <CardActions />
+
             <Typography variant='h6'>
               See my projects on github
             </Typography>

@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'normal'
   },
   dropwDownLink: {
-    color: 'black',
+    color: 'white',
     textDecorationLine: 'none',
     fontWeight: 'normal',
     '&:hover': {
@@ -133,7 +133,18 @@ const RoutingWrapper = () => {
             activeStyle={{ color: 'white' }}
             className={classes.link}
           >
-            Tv shows
+            Series
+          </NavLink>
+          <NavLink
+            exact
+            to='/MyList'
+            activeStyle={{ color: 'white' }}
+            className={classes.link}
+          >
+
+            <IconButton aria-label='add to favorites' className={classes.heart}>
+              <FavoriteIcon />  {myList.length}
+            </IconButton>
           </NavLink>
           <NavLink
             exact
@@ -144,6 +155,7 @@ const RoutingWrapper = () => {
           >
             {user ? 'Logout' : 'Login'}
           </NavLink>
+
         </div>
 
         <div className={classes.navRight}>
@@ -156,17 +168,7 @@ const RoutingWrapper = () => {
           >
             <AccountBoxOutlinedIcon />
           </Button>
-          <NavLink
-            exact
-            to='/MyList'
-            activeStyle={{ color: 'white' }}
-            className={classes.dropwDownLink}
-          >
 
-            <IconButton aria-label='add to favorites' className={classes.heart}>
-              <FavoriteIcon />  {myList.length}
-            </IconButton>
-          </NavLink>
           <Menu
             id='simple-menu'
             anchorEl={anchorEl}

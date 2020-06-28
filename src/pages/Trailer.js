@@ -130,7 +130,8 @@ const Trailer = ({ movieId }) => {
     if (user) {
       if (inputComment) {
         setCommentsArray([...commentsArray, {
-          [user.email]: comment
+          name: user.email,
+          comment
         }])
         setInputComment('')
         // add comment to firebase
@@ -190,6 +191,7 @@ const Trailer = ({ movieId }) => {
 
   const setCommentToFirebase = (comment) => {
     const commentsRef = db.collection('Comments')
+
     const docRef = commentsRef.doc(movieId)
     docRef.set({
       [user.email]: comment
