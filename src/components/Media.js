@@ -70,12 +70,12 @@ const Media = ({ product, handleOpen, idx }) => {
   const { movies, setMovies, myList, tvShows, setMyList } = useContext(UserContext)
 
   const AddToMyList = (product) => {
-    if (myList.find(movi => movi.id === product)) {
+    if (myList.find(movi => movi.id === product)) { // important to use find method and not some or include since we're looking for an object inside array
       setMyList(myList.filter(movi => movi.id !== product))
     } else {
       const together = movies.concat(tvShows)
-      const productObj = together.find(movi => movi.id === product)
-      setMyList([...myList, productObj])
+      const obj = together.find(mo => mo.id === product)
+      setMyList([...myList, obj])
     }
   }
 
@@ -95,11 +95,11 @@ const Media = ({ product, handleOpen, idx }) => {
         <Typography className={classes.p}>
           {product.original_title}
         </Typography>
+
         <CardActions className={classes.links}>
           <Link className={classes.youtube} to={`/Movies/${product.id}`}>Trailer<i className='fab fa-youtube' /></Link>
           <Typography className={classes.heart} variant='h6' component='h6' onClick={() => AddToMyList(product.id)}>
-            {myList.find(movi => movi === product) ? (<i className='fas fa-heart' />) : (<i className='far fa-heart' />)}
-
+            {myList.find(movi => movi.id === product.id) ? (<i className='fas fa-heart' />) : (<i className='far fa-heart' />)}
           </Typography>
         </CardActions>
 

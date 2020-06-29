@@ -73,8 +73,9 @@ const Home = () => {
               <Typography className={classes.icons} variant='h5' component='h2'>
                 <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-twitter' /></a>
               </Typography>
+
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <Button variant='outlined'>CV</Button>
+                <a href='https://drive.google.com/drive/my-drive' />
               </Typography>
 
             </Typography>
