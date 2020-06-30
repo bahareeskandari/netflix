@@ -122,20 +122,16 @@ const Trailer = ({ movieId }) => {
     }).then(r => r.json())
       .then((r) => {
         setUrlSearch(r.items[0].id.videoId)
-      }).catch(error => console.log(error))
+      }).catch(error => console.log('error', error))
     getComments()
   }, [])
 
   const handleAddComment = (comment) => {
     if (user) {
       if (inputComment) {
-        setCommentsArray([...commentsArray, {
-          name: user.email,
-          comment
-        }])
-        setInputComment('')
         // add comment to firebase
         setCommentToFirebase(comment)
+        setInputComment('')
         getComments()
       }
     } else {
@@ -143,28 +139,26 @@ const Trailer = ({ movieId }) => {
     }
   }
   const handleAddEditedComment = (comment) => {
-    const newCommentsArray = [...commentsArray]
-    deleteData()
-    newCommentsArray.splice(chosenCommentIndex, 1, {
-      [user.email]: comment
-    })
-    setCommentsArray(newCommentsArray)
     setCommentToFirebase(comment)
     getComments()
     setchosenCommentIndex(null)
   }
-  const handleDeleteComment = (idx) => {
-    setCommentsArray(commentsArray.filter((comment, index) => index !== idx))
-  }
-
-  const deleteData = () => {
-    const docRef = db.collection('Comments').doc(movieId)
-    // Remove the 'capital' field from the document
-    docRef.update({
-      [user.email]: firebase.firestore.FieldValue.delete()
+  const deleteData = (name) => {
+    db.collection('Comments').doc(movieId).update({
+      [name]: firebase.firestore.FieldValue.delete()
     })
   }
+  const handleDeleteComment = (idx) => {
+    console.log(commentsArray[idx].user)
+    deleteData(commentsArray[idx].user)
+    getComments()
+  }
 
+  const handleEditBtn = (idx) => {
+    setEditCommentValue(commentsArray[idx].comment)
+    setchosenCommentIndex(idx)
+    deleteData(commentsArray[idx].user)
+  }
   const getComments = () => {
     const commentsRef = db.collection('Comments')
     const docRef = commentsRef.doc(movieId)
@@ -179,7 +173,7 @@ const Trailer = ({ movieId }) => {
             comment: data[email]
           }
         })
-        setCommentsArray([...commentsArray, ...commentsFromDb])
+        setCommentsArray([...commentsFromDb])
       } else {
       // doc.data() will be undefined in this case
         console.log('No such document!')
@@ -188,13 +182,16 @@ const Trailer = ({ movieId }) => {
       console.log('Error getting document:', error)
     })
   }
-
   const setCommentToFirebase = (comment) => {
     const commentsRef = db.collection('Comments')
 
     const docRef = commentsRef.doc(movieId)
+
+    const timeOfComment = new Date()
+    const name = (user.email.replace(/[^a-zA-Z]+/g, '') + timeOfComment.getMinutes() + timeOfComment.getSeconds())
+    const names = name.trim()
     docRef.set({
-      [user.email]: comment
+      [names]: comment
     }, { merge: true })
   }
 
@@ -271,7 +268,6 @@ const Trailer = ({ movieId }) => {
                   <div>
                     <li className={classes.li} key={index}>
                       <p className={classes.p}>{comment.user || null}</p>
-                      {console.log(comment)}
                       {comment.comment}
                       <IconButton
                         aria-label='delete'
@@ -282,10 +278,7 @@ const Trailer = ({ movieId }) => {
                         <DeleteIcon />
                       </IconButton>
                       <Button
-                        onClick={() => {
-                          setEditCommentValue(commentsArray[index].comment)
-                          setchosenCommentIndex(index)
-                        }}
+                        onClick={() => handleEditBtn(index)}
                         className={classes.button}
                         variant='contained'
                       >
