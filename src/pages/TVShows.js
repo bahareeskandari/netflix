@@ -24,6 +24,7 @@ const TVShows = () => {
 
   const getTVShows = async () => {
     const { topRatedTv } = await fetchTVshows(tvShowsPage)
+    setTvShowsPage(tvShowsPage + 1)
     await setTvShows([...tvShows, ...topRatedTv])
     setLoading(false)
   }
@@ -37,7 +38,7 @@ const TVShows = () => {
       setHasMore(false)
       return
     }
-    setTvShowsPage(tvShowsPage + 1)
+
     setTimeout(() => {
       getTVShows()
     }, 1500) // takes 1500 sec to upload the infinite scroll pagination

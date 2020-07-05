@@ -75,7 +75,7 @@ const Home = () => {
               </Typography>
 
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <a href='https://drive.google.com/drive/my-drive' />
+                <a href='https://github.com/bahareeskandari/netflix' />
               </Typography>
 
             </Typography>

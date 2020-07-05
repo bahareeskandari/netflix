@@ -25,6 +25,7 @@ const Movies = () => {
 
   const getMovies = async () => {
     const { topRated } = await fetchMovies(moviePage)
+    setMoviePage(moviePage + 1)
     await setMovies([...movies, ...topRated])
     setLoading(false)
   }
@@ -38,7 +39,6 @@ const Movies = () => {
       setHasMore(false)
       return
     }
-    setMoviePage(moviePage + 1)
     setTimeout(() => {
       getMovies()
     }, 1500) // takes 1500 sec to upload the infinite scroll pagination
