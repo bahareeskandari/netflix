@@ -68,23 +68,16 @@ const Home = () => {
                 <a href='https://www.facebook.com/bahare.eskandari.9/'><i className='fab fa-facebook-f' /></a>
               </Typography>
               <Typography className={classes.icons} variant='h5' component='h2'>
-                <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-github' /></a>
+                <a href='https://github.com/bahareeskandari'><i className='fab fa-github' /></a>
               </Typography>
-              <Typography className={classes.icons} variant='h5' component='h2'>
-                <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-twitter' /></a>
-              </Typography>
-
-              <Typography className={classes.icons} variant='h5' component='h2'>
-                <a href='https://github.com/bahareeskandari/netflix' />
-              </Typography>
-
             </Typography>
             <img src={imageProfile} alt='hh' style={{ width: '100px' }} />
-
             <CardActions />
-
             <Typography variant='h6'>
-              See my projects on github
+              Projects on github
+            </Typography>
+            <Typography className={classes.links} variant='h6'>
+              <a className={classes.links} href='https://github.com/bahareeskandari/netflix'> Netflix trailers </a>
             </Typography>
             <Typography className={classes.links} variant='h6'>
               <a className={classes.links} href='https://github.com/bahareeskandari/Ravenous-Using-Hooks'> Ravenous-app </a>
