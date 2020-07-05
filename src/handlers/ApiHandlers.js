@@ -13,8 +13,7 @@ export const fetchMovies = async (page) => {
       original_title: movie.original_title,
       poster_path: movie.poster_path,
       id: movie.id,
-      overview: movie.overview,
-      valueOf: false
+      overview: movie.overview
     }
   })
 
@@ -31,8 +30,7 @@ export const fetchTVshows = async (page) => {
       original_title: show.original_name,
       poster_path: show.poster_path,
       id: show.id,
-      overview: show.overview,
-      valueOf: false
+      overview: show.overview
     }
   })
 
