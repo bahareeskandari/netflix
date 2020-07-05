@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import MediaList from './MediaList'
 import Container from '@material-ui/core/Container'
-import { createGlobalStyles } from '../Util/GlobalStyles'
 import Popup from './Popup'
 import Grid from '@material-ui/core/Grid'
-
-// API Key: 45c558de41ced2373b930108825d0ef8
 
 export default function MediaDisplayer ({ media = {} }) {
   const [openModal, setOpenModal] = useState(false)
