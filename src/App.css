@@ -1,7 +1,55 @@
-input[type='radio'] {
-  display: none;
+.body {
+  height: 1000px;
+
+  background-image: url('./components/assets/picRound.jpg');
+  background-repeat: no-repeat;
+  border-radius: 5px;
+
 }
-.star {
-  cursor: pointer;
-  transition: color 200ms;
+.center {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 40%;
+  max-height: 100%;
+  text-align: center;
+  border-radius: 5px;
+}
+@media only screen and (max-width: 600px) {
+  .center {
+    height: 100%;
+    overflow: scroll;
+    width: 100%;
+
+  }
+}
+.center .avatar img {
+  border-radius: 50%;
+  width: 140px;
+  height: 140px;
+  margin-top: 5%;
+  object-fit: cover;
+  object-position: 0 -8px;
+}
+.content {
+  padding: 30px;
+}
+h1 {
+  color: rgb(212, 212, 212);
+}
+.content h2, p {
+  font-weight: lighter;
+  color: antiquewhite;
+  letter-spacing: 1px;
+  width: 70%;
+  margin: 10px auto;
+}
+
+.social i{
+padding: 0 10px;
+font-size: 40px;
+color: rgb(255, 255,255,0.6);
+transition: 0.4s;
+margin-bottom: 15px;
+}
+.social i:hover {
+  color: rgba(255, 255,255, 1);
 }

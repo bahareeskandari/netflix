@@ -1,56 +1,35 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardActions from '@material-ui/core/CardActions'
-import CardContent from '@material-ui/core/CardContent'
-import Typography from '@material-ui/core/Typography'
-import imageProfile from '../components/profile.jpg'
-
-const useStyles = makeStyles({
-  root: {
-    backgroundColor: 'white',
-    height: '400px'
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)'
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    fontSize: '25px'
-  },
-  icons: {
-    padding: 15,
-    display: 'inline-block',
-    cursor: 'pointer'
-  },
-  links: {
-    textDecoration: 'none',
-    fontSize: '14px',
-    '&:hover': {
-      color: 'gray'
-    }
-  },
-  iconsContainer: {
-    marginTop: '100px',
-    marginLeft: '360px'
-
-  }
-})
+import minipic from '../components/assets/minipic.jpg'
+import '../App.css'
 
 const Home = () => {
-  const classes = useStyles()
-
   return (
-    <Container maxWidth='lg'>
-      <CssBaseline />
-      <Container maxWidth='sm'>
-        <Card className={classes.root} variant='outlined'>
+    <div className='body'>
+      <div className='center'>
+        <div className='avatar'>
+          <img src={minipic} alt='backgroundimg' />
+        </div>
+
+        <div className='content'>
+          <h1>Bahare Eskandari</h1>
+          <h2>Front-end developer</h2>
+          <p>After a four year career as a pharmacist, working hard to reach a manager position, I come to realise that this was not something that I wanted to continue to do for the rest of my life.
+
+            Over two years ago I decided to reassess my career trajectory and start focusing on something more forward looking that I’m more excited about. I wanted to tap into my problem solving skills and eye for details and that’s how I began my journey as a frontend developer.
+          </p>
+          <h3>contat</h3>
+        </div>
+        <div className='social'>
+          <a href='https://github.com/bahareeskandari'><i className='fab fa-github' /></a>
+          <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-linkedin' /></a>
+          <a href='https://www.facebook.com/bahare.eskandari.9/'><i className='fab fa-facebook-f' /></a>
+        </div>
+      </div>
+    </div>
+  )
+}
+export default Home
+/*
           <CardContent>
             <Typography variant='h5' className={classes.pos} component='h2'>
               Hi, I'm Bahare Eskandari
@@ -91,9 +70,4 @@ const Home = () => {
             </Typography>
           </CardContent>
 
-        </Card>
-      </Container>
-    </Container>
-  )
-}
-export default Home
+*/
