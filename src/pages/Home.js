@@ -17,12 +17,13 @@ const Home = () => {
 
             Over two years ago I decided to reassess my career trajectory and start focusing on something more forward looking that I’m more excited about. I wanted to tap into my problem solving skills and eye for details and that’s how I began my journey as a frontend developer.
           </p>
-          <h3>contat</h3>
+          <h3>Contact</h3>
         </div>
         <div className='social'>
           <a href='https://github.com/bahareeskandari'><i className='fab fa-github' /></a>
           <a href='https://linkedin.com/in/bahare-eskandari-50b033195'><i className='fab fa-linkedin' /></a>
           <a href='https://www.facebook.com/bahare.eskandari.9/'><i className='fab fa-facebook-f' /></a>
+          <a href='https://www.dropbox.com/s/t1ccsznoc6jaxnz/Bahare%20CV%20update.pdf?dl=0'>CV</a>
         </div>
       </div>
     </div>

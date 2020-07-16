@@ -8,7 +8,7 @@
 }
 .center {
   background-color: rgba(0, 0, 0, 0.7);
-  width: 40%;
+  width: 30%;
   max-height: 100%;
   text-align: center;
   border-radius: 5px;
@@ -35,6 +35,9 @@
 h1 {
   color: rgb(212, 212, 212);
 }
+h3 {
+color: rgb(155, 155, 155);
+}
 .content h2, p {
   font-weight: lighter;
   color: antiquewhite;
@@ -42,14 +45,14 @@ h1 {
   width: 70%;
   margin: 10px auto;
 }
-
-.social i{
+.social i, .social a {
 padding: 0 10px;
 font-size: 40px;
 color: rgb(255, 255,255,0.6);
 transition: 0.4s;
 margin-bottom: 15px;
+text-decoration: none;
 }
-.social i:hover {
+.social i:hover , .social a:hover{
   color: rgba(255, 255,255, 1);
 }
