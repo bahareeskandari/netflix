@@ -32,13 +32,13 @@
 .content {
   padding: 30px;
 }
-h1 {
+.h1 {
   color: rgb(212, 212, 212);
 }
-h3 {
+.h3 {
 color: rgb(155, 155, 155);
 }
-.content h2, p {
+.content .h2, .p {
   font-weight: lighter;
   color: antiquewhite;
   letter-spacing: 1px;

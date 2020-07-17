@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '25px',
     margin: '70',
     textDecoration: 'none',
+    transition: '0.4s',
     color: '#5f6368',
     '&:hover': {
       color: '#222'
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: 'pointer',
     fontSize: '25px',
     margin: '0 90px 0 0',
+    transition: '0.4s',
     textDecoration: 'none',
     color: '#5f6368',
     '&:hover': {
@@ -49,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   links: {
     color: '#5f6368',
     textDecoration: 'none',
+    transition: '0.4s',
     '&:hover': {
       color: '#222'
     }
@@ -57,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '14px',
     color: '#5f6368',
     textDecoration: 'none',
+    transition: '0.4s',
     '&:hover': {
       color: '#222'
     }

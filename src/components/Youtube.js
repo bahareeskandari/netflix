@@ -12,7 +12,17 @@ const useStyles = makeStyles((theme) => ({
     padding: '1px'
   },
   youtube: {
-    fontSize: '20px'
+    fontSize: '20px',
+    color: 'rgba(0, 0, 0, 0.7)',
+    transition: '0.4s',
+    textDecoration: 'none',
+    textTransform: 'uppercase',
+    '&:hover': {
+      color: '#222'
+    },
+    '&:focus': {
+      color: '#222'
+    }
 
   },
   li: {
@@ -70,16 +80,12 @@ const Youtube = () => {
           Go back
         </Typography>
         <Typography variant='h5' component='h2' gutterBottom>
-          Go back to Movies and choose a movie trailer.
+          Click to navigate to<Link className={classes.youtube} to='/Movies'>TRAILERS{' '}<i className='fab fa-youtube' /></Link>
 
         </Typography>
 
       </Container>
-      <footer className={classes.footer}>
-        <Container maxWidth='sm'>
-          <Link className={classes.youtube} to='/Movies'>TRAILERS{' '}<i className='fab fa-youtube' /></Link>
-        </Container>
-      </footer>
+
     </div>
   )
 }

@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     color: '#e9e9e9',
     fontFamily: "'Netflix Sans', 'Helvetica Neue',´ Helvetica, Arial, sans-serif",
     fontWeight: 'normal',
-    fontSize: 14,
+    fontSize: 11,
+    transition: '0.4s',
     '&:hover': {
       color: 'gray'
     }
@@ -36,8 +37,20 @@ const useStyles = makeStyles((theme) => ({
     textDecorationLine: 'none',
     fontFamily: "'Netflix Sans', 'Helvetica Neue',´ Helvetica, Arial, sans-serif",
     fontWeight: 'normal',
+    transition: '0.4s',
     '&:hover': {
       color: 'gray'
+    }
+  },
+  linkA: {
+    color: '#e9e9e9',
+    margin: theme.spacing(2),
+    textDecorationLine: 'none',
+    fontFamily: "'Netflix Sans', 'Helvetica Neue',´ Helvetica, Arial, sans-serif",
+    fontWeight: 'normal',
+    transition: '0.4s',
+    '&:hover': {
+      color: 'rgba(255, 255,255, 1)'
     }
   },
   searchBar: {
@@ -51,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     textDecorationLine: 'none',
     fontWeight: 'normal',
+    transition: '0.4s',
     '&:hover': {
       color: 'gray'
     }
@@ -139,7 +153,7 @@ const RoutingWrapper = () => {
             exact
             to='/MyList'
             activeStyle={{ color: 'white' }}
-            className={classes.link}
+            className={classes.linkA}
           >
 
             <IconButton aria-label='add to favorites' className={classes.heart}>

@@ -4,13 +4,15 @@ export const createGlobalStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexGrow: 1,
-    backgroundColor: 'white'
+    backgroundColor: 'yellow'
   },
   footer: {
-    padding: '50px',
-    margin: '50px',
     color: '#808080',
-    backgroundColor: '#141414'
+    backgroundColor: 'black',
+    bottom: 0,
+    width: '100%',
+    height: '100px',
+    padding: 20
   }
 
 }))

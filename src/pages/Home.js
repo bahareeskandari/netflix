@@ -11,13 +11,15 @@ const Home = () => {
         </div>
 
         <div className='content'>
-          <h1>Bahare Eskandari</h1>
-          <h2>Front-end developer</h2>
-          <p>After a four year career as a pharmacist, working hard to reach a manager position, I come to realise that this was not something that I wanted to continue to do for the rest of my life.
-
-            Over two years ago I decided to reassess my career trajectory and start focusing on something more forward looking that I’m more excited about. I wanted to tap into my problem solving skills and eye for details and that’s how I began my journey as a frontend developer.
+          <h1 className='h1'>Bahare Eskandari</h1>
+          <h2 className='h2'>Javascript developer</h2>
+          <p className='p'>
+            Tech Geek | Travel Enthusias
           </p>
-          <h3>Contact</h3>
+          <p className='p'>
+            This page is something I was working on at the same time as I was doing my internship. Used firebase to store data and login user. Fetched api from youtube and moviedb. Navigate to movies/series, click like to add to your list or click to see the trailer of your chosen serie/movie. Also added scroll pagination and search/filter a specific movie/serie you're looking for.
+          </p>
+          <h3 className='h3'>Contact</h3>
         </div>
         <div className='social'>
           <a href='https://github.com/bahareeskandari'><i className='fab fa-github' /></a>

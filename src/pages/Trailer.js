@@ -2,7 +2,9 @@ import React, { useState, useContext, useEffect } from 'react'
 import { UserContext } from '../components/UserContext'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import clsx from 'clsx'
-import { makeStyles } from '@material-ui/core/styles'
+import {
+  makeStyles
+} from '@material-ui/core/styles'
 import Collapse from '@material-ui/core/Collapse'
 import FilledInput from '@material-ui/core/FilledInput'
 import InputLabel from '@material-ui/core/InputLabel'
@@ -19,6 +21,8 @@ import firebase from 'firebase'
 import 'firebase/firestore'
 import Button from '@material-ui/core/Button'
 import FirebaseContext from '../Firebase/FirebaseContext'
+import TextField from '@material-ui/core/TextField'
+
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 
@@ -34,6 +38,9 @@ const useStyles = makeStyles((theme) => ({
     width: '10px',
     padding: '1px'
   },
+  margin: {
+    margin: theme.spacing(1)
+  },
   youtube: {
     fontSize: '20px'
 
@@ -42,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '22px',
     listStyle: 'none'
   },
-  margin: {
+  marginI: {
     margin: theme.spacing(1)
   },
   withoutLabel: {
@@ -215,11 +222,14 @@ const Trailer = ({ movieId }) => {
               <br />
               <br />
               <InputLabel htmlFor='standard-adornment-password'>Add Your comment</InputLabel>
-              <FilledInput
-                id='component-filled'
+              <TextField
+                className={classes.marginI}
+                label='ThemeProvider'
+                id='mui-theme-provider-standard-input'
                 value={inputComment}
                 onChange={(e) => setInputComment(e.target.value)}
               />
+
               <Button
                 variant='outlined'
                 className={classes.addBtn}
