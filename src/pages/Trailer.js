@@ -219,12 +219,10 @@ const Trailer = ({ movieId }) => {
               <Typography variant='body2' color='textSecondary' component='p'>
                 {chosenTrailer.overview}
               </Typography>
-              <br />
-              <br />
-              <InputLabel htmlFor='standard-adornment-password'>Add Your comment</InputLabel>
+
               <TextField
                 className={classes.marginI}
-                label='ThemeProvider'
+                label='Add comment'
                 id='mui-theme-provider-standard-input'
                 value={inputComment}
                 onChange={(e) => setInputComment(e.target.value)}
@@ -259,11 +257,15 @@ const Trailer = ({ movieId }) => {
               {commentsArray.map((comment, index) =>
                 chosenCommentIndex === index ? (
                   <>
-                    <FilledInput
-                      id='component-filled'
+
+                    <TextField
+                      className={classes.marginI}
+                      label='Add comment'
+                      id='mui-theme-provider-standard-input'
                       value={editCommentValue}
                       onChange={(e) => setEditCommentValue(e.target.value)}
                     />
+
                     <Button
                       variant='outlined'
                       color='primary'
