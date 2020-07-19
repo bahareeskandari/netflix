@@ -121,7 +121,7 @@ const Trailer = ({ movieId }) => {
   const urlYoutube = `https://www.googleapis.com/youtube/v3/search?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
 
   useEffect(() => {
-    fetch(urlYoutube, {
+    window.fetch(urlYoutube, {
       headers: {
         'Content-Type': 'application/json'
 
@@ -142,7 +142,7 @@ const Trailer = ({ movieId }) => {
         getComments()
       }
     } else {
-      alert('You need to login first')
+      window.alert('You need to login first')
     }
   }
   const handleAddEditedComment = (comment) => {
