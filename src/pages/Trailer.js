@@ -124,7 +124,6 @@ const Trailer = ({ movieId }) => {
     window.fetch(urlYoutube, {
       headers: {
         'Content-Type': 'application/json'
-
       }
     }).then(r => r.json())
       .then((r) => {
@@ -191,9 +190,7 @@ const Trailer = ({ movieId }) => {
   }
   const setCommentToFirebase = (comment) => {
     const commentsRef = db.collection('Comments')
-
     const docRef = commentsRef.doc(movieId)
-
     const timeOfComment = new Date()
     const name = (user.email.replace(/[^a-zA-Z]+/g, '') + timeOfComment.getMinutes() + timeOfComment.getSeconds())
     const names = name.trim()
