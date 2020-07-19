@@ -31,7 +31,7 @@ const Movies = () => {
     }
     setTimeout(() => {
       getMovies()
-    }, 1200) // takes 1200 sec to upload the infinite scroll pagination
+    }, 1300) // takes 1200 sec to upload the infinite scroll pagination
   }
 
   return (
