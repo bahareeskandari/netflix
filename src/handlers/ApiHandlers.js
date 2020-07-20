@@ -5,11 +5,12 @@ require('isomorphic-fetch')
 
 export const fetchMovies = async (page) => {
   const topRatedMoviesUrl = getTopMoviesUrl(page)
+  console.log('inapi hanlder', topRatedMoviesUrl) // remove later
   const topRatedMovies = await window.fetch(topRatedMoviesUrl)
   console.log(topRatedMoviesUrl) // remove later
-  const topRatedMoviesData = await topRatedMovies.json()
+  // const topRatedMoviesData = await topRatedMovies.json()
 
-  const topRated = await topRatedMoviesData.results.map((movie) => {
+  const topRated = await topRatedMovies.results.map((movie) => {
     return {
       original_title: movie.original_title,
       poster_path: movie.poster_path,
