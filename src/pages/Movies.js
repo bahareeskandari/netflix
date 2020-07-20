@@ -4,19 +4,8 @@ import { UserContext } from '../components/UserContext'
 import { fetchMovies } from '../handlers/ApiHandlers'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
-import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import InfiniteScroll from 'react-infinite-scroll-component'
-require('es6-promise').polyfill()
-require('isomorphic-fetch')
-
-let Keys
-if (process.env.NODE_ENV === 'production') {
-  Keys = process.env
-} else {
-  Keys = require('../Keys.json')
-}
-console.log(Keys)
 
 const Movies = () => {
   const { movies, setMovies, loading, setLoading } = useContext(UserContext)
@@ -56,9 +45,7 @@ const Movies = () => {
               hasMore={hasMore}
               loader={<CircularProgress disableShrink />}
               endMessage={
-                <Typography variant='body2' color='textSecondary' component='p'>
-                  no more
-                </Typography>
+                <p>No more tv shows</p>
               }
             >
               <MediaDisplayer media={movies} />
