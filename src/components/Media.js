@@ -115,3 +115,13 @@ const Media = ({ product, handleOpen, idx }) => {
   )
 }
 export default Media
+
+/**
+
+  // const { match: { params } } = this.props
+  // const id = params.id
+    // const id = req.params.id // undefined req?
+
+<Route path="/users/:id" render={(props) => <UserPage {...props} />}/>
+this.props.match.params.id
+ */
