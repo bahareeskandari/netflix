@@ -118,7 +118,8 @@ const Trailer = ({ movieId }) => {
   }
 
   const { user, setUser } = useContext(UserContext)
-  const urlYoutube = `https://netflixtrailers.herokuapp.com/trailer?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
+  const urlYoutube = `https://netflixtrailers.herokuapp.com/api/trailer?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
+  //   const urlYoutube = `http://localhost:9000/api/trailer?part=snippet&key=${Keys.REACT_APP_APIKEYYOUTUBE}&q=${titleOf}%20trailer`
 
   useEffect(() => {
     window.fetch(urlYoutube, {
