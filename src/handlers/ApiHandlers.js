@@ -26,6 +26,7 @@ export const fetchTVshows = async (page) => {
   const topRatedTvShowsData = await topRatedTvShows.json()
 
   const topRatedTv = await topRatedTvShowsData.results.map((show) => {
+    console.log(show)
     return {
       original_title: show.original_name,
       poster_path: show.poster_path,
