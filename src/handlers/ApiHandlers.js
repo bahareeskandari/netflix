@@ -5,7 +5,13 @@ require('isomorphic-fetch')
 
 export const fetchMovies = async (page) => {
   const topRatedMoviesUrl = getTopMoviesUrl(page)
-  const topRatedMovies = await window.fetch(topRatedMoviesUrl)
+  const topRatedMovies = await window.fetch(topRatedMoviesUrl, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+
+  })
   const topRatedMoviesData = await topRatedMovies.json()
 
   const topRated = await topRatedMoviesData.results.map((movie) => {
@@ -22,7 +28,13 @@ export const fetchMovies = async (page) => {
 
 export const fetchTVshows = async (page) => {
   const topRatedTvShowsUrl = getTopRatedTvShowsUrl(page)
-  const topRatedTvShows = await window.fetch(topRatedTvShowsUrl)
+  const topRatedTvShows = await window.fetch(topRatedTvShowsUrl, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
+
+  })
   const topRatedTvShowsData = await topRatedTvShows.json()
 
   const topRatedTv = await topRatedTvShowsData.results.map((show) => {
