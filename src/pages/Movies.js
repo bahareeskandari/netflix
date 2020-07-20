@@ -7,6 +7,16 @@ import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import InfiniteScroll from 'react-infinite-scroll-component'
+require('es6-promise').polyfill()
+require('isomorphic-fetch')
+
+let Keys
+if (process.env.NODE_ENV === 'production') {
+  Keys = process.env
+} else {
+  Keys = require('../Keys.json')
+}
+console.log(Keys)
 
 const Movies = () => {
   const { movies, setMovies, loading, setLoading } = useContext(UserContext)
