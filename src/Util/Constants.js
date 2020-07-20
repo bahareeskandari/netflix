@@ -5,7 +5,7 @@ if (process.env.NODE_ENV === 'production') {
   Keys = require('../Keys.json')
 }
 
-export const getTopMoviesUrl = (page) => `http://localhost:9000/Movies?api_key=${Keys.REACT_APP_MOVIEKEY}&language=en-US&page=${page}`
+export const getTopMoviesUrl = (page) => `http://localhost:9000/api/Movies?api_key=${Keys.REACT_APP_MOVIEKEY}&language=en-US&page=${page}`
 export const getTopRatedTvShowsUrl = (page) => `https://netflixtrailers.herokuapp.com/api/TVShows?api_key=${Keys.REACT_APP_MOVIEKEY}&language=en-US&page=${page}`
 export const imageFirstPart = 'https://image.tmdb.org/t/p/w200/'
 

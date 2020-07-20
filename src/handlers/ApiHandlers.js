@@ -10,7 +10,7 @@ export const fetchMovies = async (page) => {
   console.log('topRatedMoviesUrl BEFORE JSON', topRatedMoviesUrl) // remove later
   console.log('topRatedMovies', topRatedMovies)
 
-  const topRatedMoviesData = await topRatedMovies.body.json()
+  const topRatedMoviesData = await topRatedMovies.json()
   console.log('topRatedMoviesDataAfterJSON', topRatedMoviesData) // DOESNT SHOW THIS EITHER remove later
 
   const topRated = await topRatedMoviesData.results.map((movie) => {
