@@ -24,7 +24,6 @@ const Movies = () => {
   const [moviePage, setMoviePage] = useState(1)
 
   const getMovies = async () => {
-    console.log('inside movies.js geMovies function', movies)
     const { topRated } = await fetchMovies(moviePage)
     setMoviePage(moviePage + 1)
     await setMovies([...movies, ...topRated])
