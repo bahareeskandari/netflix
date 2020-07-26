@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 ### CLIENT
 ## Features
-Login/ Authorization - with gmail (stored in Firebase database)
+Login/ Authorization - with gmail (Firebase auth)
 
 Click to watch trailer - of the movies by fetching api from YOUTUBE
 
